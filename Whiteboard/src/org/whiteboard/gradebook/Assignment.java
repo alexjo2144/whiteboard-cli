@@ -1,7 +1,5 @@
-/**
- * 
- */
 package org.whiteboard.gradebook;
+
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,7 +12,21 @@ import java.util.NoSuchElementException;
  * 
  * @author Daniel Wolf <wolf@ccs.neu.edu>
  * @version Mar 30, 2014 */
-public abstract class Assignment {
+public class Assignment {
+    
+    /*
+     * TODO: Include weighting field
+     */
+    
+    
+    
+    protected Assignment(String n, String d, String k, int tpp) {
+        this.name = n;
+        this.description = d;
+        this.kind = k;
+        this.totalPointsPossible = tpp;
+    }
+    
     /////////////////////////////  Constants //////////////////////////////////
     /** String representing the title for this assignment */
     private String name;
@@ -31,16 +43,16 @@ public abstract class Assignment {
     /////////////////////Non-trivial methods///////////////////////////////////
     /**
      * Gets the grade for a specific student on this assignment
-     * @param actor a User representing the Student whose grade is 
+     * @param student a User representing the Student whose grade is 
      * being retrieved.
-     * @return an Integer representing the actor's score
+     * @return an Integer representing the student's score
      * out of this.possiblePoints.
-     * @throws a NoSuchElementException if given User, actor, does not 
+     * @throws a NoSuchElementException if given User, student, does not 
      * have a grade for this assignment.  
      */
-    protected Integer getGrade(User actor) {
-        if (grades.containsKey(actor.getID())) {
-            return grades.get(actor.getID());
+    protected Integer getGrade(User student) {
+        if (grades.containsKey(student.getID())) {
+            return grades.get(student.getID());
         }
         else {
             throw new NoSuchElementException();
@@ -119,6 +131,53 @@ public abstract class Assignment {
         return sum / grades.size();
     }
     
+    /**
+     * Adds a new Student and their grade to this assignment
+     * If the student already has a grade, the old one is overridden
+     * @param student the User whose grade is being added
+     * @param score the grade the student received out of totalPossiblePoints
+     */
+    protected void addGrade(User student, int score) {
+        grades.put(student.getID(), score);
+    }
+    
+    /**
+     * sets given Student's grade for this assignment to given int
+     * If the student doesn't have a grade, this one is inserted
+     * @param student the User whose grade is being added
+     * @param score the grade the student received out of totalPossiblePoints
+     */
+    protected void setGrade(User student, int score) {
+        grades.put(student.getID(), score);
+    }
+    
+    /**
+     * Checks if this Assignment is equal to the given object
+     * @param obj The Object equality is being checked against
+     * @return true if the given Object is equal to this Assignment,
+     * otherwise false.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Assignment) {
+            Assignment temp = (Assignment)obj;
+            if(temp.getName().equals(this.name)
+                    && temp.getTotalPointsPossible() == this.totalPointsPossible 
+                    && temp.getDescription().equals(this.description)
+                    && temp.getKind().equals(this.kind)
+                    && temp.getAllGrades().equals(this.grades)) {
+                return true;
+            }
+            
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+    
     ////////////////////Setters and Getters////////////////////////////////////
     /**
      * Gets the name of this assignment
@@ -188,7 +247,7 @@ public abstract class Assignment {
      * Gets a map representing the grades for all students on this assignment.
      * @return A map from student ID numbers, as an int, to grades, as an int.
      */
-    protected Map<Integer, Integer> getAllGrades() {
+    protected HashMap<Integer, Integer> getAllGrades() {
         return this.grades;
     }
 }
