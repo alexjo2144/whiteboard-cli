@@ -12,11 +12,11 @@ public abstract class Grade {
     private Double points;
     private String description;
     
-    public abstract Double getPoints(User actor);
+    public abstract Double getPoints();
     
-    public abstract boolean setPoints(User actor, Double points);
+    public abstract boolean setPoints(Double points);
     
-    public abstract String getDescription(User actor);
+    public abstract String getDescription();
     
-    public abstract boolean setDescription(User actor, String description);
+    public abstract boolean setDescription(String description);
 }

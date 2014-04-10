@@ -9,5 +9,5 @@ package org.whiteboard.gradebook;
  *
  */
 public abstract class Student extends User {
-    public abstract Double calculateCourseGrade(User actor);
+    public abstract Double calculateCourseGrade();
 }
