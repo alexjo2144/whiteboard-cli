@@ -4,8 +4,8 @@ package org.whiteboard.gradebook;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.ArrayList;
 
 /** Assignment contains information related to a single assignment and
  * methods related to all grades for that assignment.
@@ -14,17 +14,13 @@ import java.util.NoSuchElementException;
  * @version Mar 30, 2014 */
 public class Assignment {
     
-    /*
-     * TODO: Include weighting field
-     */
-    
-    
-    
-    protected Assignment(String n, String d, String k, int tpp) {
+    protected Assignment(String n, String d, String k, int tpp, int w) {
         this.name = n;
         this.description = d;
         this.kind = k;
         this.totalPointsPossible = tpp;
+        this.weight = w;
+        this.grades = new HashMap<String, Integer>();
     }
     
     /////////////////////////////  Constants //////////////////////////////////
@@ -38,8 +34,11 @@ public class Assignment {
     /** int representing the total points this assignemt is scored out of */
     private int totalPointsPossible;
     /** A Map that maps a student's ID number to their associated grade */
-    private HashMap<Integer, Integer> grades;
-
+    private HashMap<String, Integer> grades;
+    /** an int representing the weighting for this assignment out of 100 
+     * an Assignment with a weight of 5 would count as 5% of a total grade */
+    private int weight;
+    
     /////////////////////Non-trivial methods///////////////////////////////////
     /**
      * Gets the grade for a specific student on this assignment
@@ -79,11 +78,14 @@ public class Assignment {
      * @return a Double representing the median grade
      */
     protected Double calculateMedian() {
-        List<Integer> sorted = (List<Integer>)grades.values();
+        List<Integer> sorted = new ArrayList<Integer>();
+        for(Integer i : this.grades.values()) {
+            sorted.add(i);
+        }
         Collections.sort(sorted);
         int size = sorted.size();
         if(sorted.size() % 2 == 0) {
-            return (sorted.get(size/2) + sorted.get(1 + size/2) / 2.0);
+            return ((sorted.get(size/2) + sorted.get((size/2) - 1)) / 2.0);
         }
         else {
             return sorted.get(size/2) / 1.0;
@@ -244,10 +246,26 @@ public class Assignment {
     }
     
     /**
+     * Gets this Assignment's weight
+     * @return an int representing this Assignment's weight out of 100
+     */
+    protected int getWeight() {
+        return this.weight;
+    }
+    
+    /**
+     * Sets this Assignment's weight to given int, w
+     * @param w the new Weight for this Assignment
+     */
+    protected void setWeight(int w) {
+        this.weight = w;
+    }
+    
+    /**
      * Gets a map representing the grades for all students on this assignment.
      * @return A map from student ID numbers, as an int, to grades, as an int.
      */
-    protected HashMap<Integer, Integer> getAllGrades() {
+    protected HashMap<String, Integer> getAllGrades() {
         return this.grades;
     }
 }
