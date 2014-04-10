@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @version Mar 30, 2014 */
 public class Assignment {
     
-    protected Assignment(String n, String d, String k, int tpp, int w) {
+    protected Assignment(String n, String d, String k, double tpp, double w) {
         this.name = n;
         this.description = d;
         this.kind = k;
@@ -31,21 +31,20 @@ public class Assignment {
     /** String representing this assignment's type, 
      * eg. test, quiz, homework, etc */
     private String kind;
-    /** int representing the total points this assignemt is scored out of */
-    private int totalPointsPossible;
+    /** double representing the total points this assignemt is scored out of */
+    private double totalPointsPossible;
     /** A Map that maps a student's ID number to their associated grade */
     private HashMap<String, Double> grades;
-    
-    /** an int representing the weighting for this assignment out of 100 
+    /** an double representing the weighting for this assignment out of 100 
      * an Assignment with a weight of 5 would count as 5% of a total grade */
-    private int weight;
+    private double weight;
     
     /////////////////////Non-trivial methods///////////////////////////////////
     /**
      * Gets the grade for a specific student on this assignment
      * @param student a User representing the Student whose grade is 
      * being retrieved.
-     * @return an Integer representing the student's score
+     * @return an Double representing the student's score
      * out of this.possiblePoints.
      * @throws a NoSuchElementException if given User, student, does not 
      * have a grade for this assignment.  
@@ -95,7 +94,7 @@ public class Assignment {
     
     /**
      * Calculates the lowest score on this assignment
-     * @return an Integer, the lowest score a student received
+     * @return an Double, the lowest score a student received
      */
     protected Double getMin() {
         double lowest = this.totalPointsPossible;
@@ -109,7 +108,7 @@ public class Assignment {
     
     /**
      * Calculates the highest score on this assignment
-     * @return an Integer, the highest score a student received
+     * @return an Double, the highest score a student received
      */
     protected Double getMax() {
         double highest = 0;
@@ -145,7 +144,7 @@ public class Assignment {
     }
     
     /**
-     * sets given Student's grade for this assignment to given int
+     * sets given Student's grade for this assignment to given double
      * If the student doesn't have a grade, this one is inserted
      * @param id the User's id whose grade is being added
      * @param score the grade the student received out of totalPossiblePoints
@@ -232,33 +231,33 @@ public class Assignment {
     
     /**
      * Gets the total number of points for this assignment.
-     * @return a int representing the total points possible for this assignment
+     * @return a double representing the total points possible for this assignment
      */
-    protected int getTotalPointsPossible() {
+    protected double getTotalPointsPossible() {
         return this.totalPointsPossible;
     }
     
     /**
-     * Sets the total points possible for this assignment to given int, p.
-     * @param d an int representing the new total points for this assignment.
+     * Sets the total points possible for this assignment to given double, p.
+     * @param d a double representing the new total points for this assignment.
      */
-    protected void setTotalPointsPossible(int p) {
+    protected void setTotalPointsPossible(double p) {
         this.totalPointsPossible = p;
     }
     
     /**
      * Gets this Assignment's weight
-     * @return an int representing this Assignment's weight out of 100
+     * @return an double representing this Assignment's weight out of 100
      */
-    protected int getWeight() {
+    protected double getWeight() {
         return this.weight;
     }
     
     /**
-     * Sets this Assignment's weight to given int, w
+     * Sets this Assignment's weight to given double, w
      * @param w the new Weight for this Assignment
      */
-    protected void setWeight(int w) {
+    protected void setWeight(double w) {
         this.weight = w;
     }
     

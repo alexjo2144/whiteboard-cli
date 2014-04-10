@@ -44,27 +44,27 @@ public class AssignmentTest {
         s3 = new Student("Ginny", "G", "Weasley", "3", "password");
         s4 = new Student("Bill", "G", "Weasley", "4", "password");
         
-        ass0.addGrade(s0, 100);
-        ass0.addGrade(s1, 85);
-        ass0.addGrade(s2, 90);
-        ass0.addGrade(s3, 50);
+        ass0.addGrade("Fred", 100);
+        ass0.addGrade("George", 85);
+        ass0.addGrade("Ron", 90);
+        ass0.addGrade("Ginny", 50);
         
-        ass1.addGrade(s0, 25);
-        ass1.addGrade(s1, 20);
-        ass1.addGrade(s2, 10);
-        ass1.addGrade(s3, 0);
+        ass1.addGrade("Fred", 25);
+        ass1.addGrade("George", 20);
+        ass1.addGrade("Ron", 10);
+        ass1.addGrade("Ginny", 0);
         
-        ass2.addGrade(s0, 10);
-        ass2.addGrade(s1, 8);
-        ass2.addGrade(s2, 5);
-        ass2.addGrade(s3, 9);
-        ass2.addGrade(s4, 10);
+        ass2.addGrade("Fred", 10);
+        ass2.addGrade("George", 8);
+        ass2.addGrade("Ron", 5);
+        ass2.addGrade("Ginny", 9);
+        ass2.addGrade("Bill", 10);
         
-        ass3.addGrade(s0, 10);
-        ass3.addGrade(s1, 9);
-        ass3.addGrade(s2, 8);
-        ass3.addGrade(s3, 7);
-        ass3.addGrade(s4, 6);
+        ass3.addGrade("Fred", 10);
+        ass3.addGrade("George", 9);
+        ass3.addGrade("Ron", 8);
+        ass3.addGrade("Ginny", 7);
+        ass3.addGrade("Bill", 6);
     }
     
     /**
@@ -72,18 +72,18 @@ public class AssignmentTest {
      */
     @Test
     public void testGetGrade() {
-        assertTrue(100 == ass0.getGrade(s0));
-        assertTrue(85 == ass0.getGrade(s1));
-        assertTrue(90 == ass0.getGrade(s2));
-        assertTrue(50 == ass0.getGrade(s3));
+        assertTrue(100 == ass0.getGrade("Fred"));
+        assertTrue(85 == ass0.getGrade("George"));
+        assertTrue(90 == ass0.getGrade("Ron"));
+        assertTrue(50 == ass0.getGrade("Ginny"));
         
-        assertTrue(25 == ass1.getGrade(s0));
-        assertTrue(20 == ass1.getGrade(s1));
-        assertTrue(10 == ass1.getGrade(s2));
-        assertTrue(0 == ass1.getGrade(s3));
+        assertTrue(25 == ass1.getGrade("Fred"));
+        assertTrue(20 == ass1.getGrade("George"));
+        assertTrue(10 == ass1.getGrade("Ron"));
+        assertTrue(0 == ass1.getGrade("Ginny"));
     
         try {
-            ass0.getGrade(s4);
+            ass0.getGrade("Bill");
         }
         catch(NoSuchElementException e) {
             assertTrue(true);
