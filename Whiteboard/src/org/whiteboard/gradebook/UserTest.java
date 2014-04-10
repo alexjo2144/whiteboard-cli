@@ -23,48 +23,99 @@ public class UserTest {
      */
     @Before
     public void initialize() {
-        s0 = new Student("George", "1", "password");
-        s1 = new Student("Fred", "2", "password");
-        t0 = new Teacher("George", "1", "password");
-        t1 = new Teacher("Fred", "2", "password");
+        s0 = new Student("George", "F", "Weasley", "1", "password");
+        s1 = new Student("Fred", "G", "Weasley", "2", "password");
+        t0 = new Teacher("George", "F", "Weasley", "1", "password");
+        t1 = new Teacher("Fred", "G", "Weasley", "2", "password");
     }
     
     /**
-     * Testing for User.getName()
+     * Testing for User.getFirstName()
      */
     @Test
-    public void testGetName() {
-        assertEquals(s0.getName(), "George");
-        assertEquals(s1.getName(), "Fred");
-        assertEquals(t0.getName(), "George");
-        assertEquals(t1.getName(), "Fred");
+    public void testGetFirstName() {
+        assertEquals(s0.getFirstName(), "George");
+        assertEquals(s1.getFirstName(), "Fred");
+        assertEquals(t0.getFirstName(), "George");
+        assertEquals(t1.getFirstName(), "Fred");
     }
     
     /**
-     * Testing for User.setName()
+     * Testing for User.setFirstName()
      */
     @Test
-    public void testSetName() {
-        s0.setName("Ron");
-        s1.setName("Ginny");
-        t0.setName("Ron");
-        t1.setName("Ginny");
-        assertEquals(s0, new Student("Ron", "1", "password"));
-        assertEquals(s1, new Student("Ginny", "2", "password"));
-        assertEquals(t0, new Teacher("Ron", "1", "password"));
-        assertEquals(t1, new Teacher("Ginny", "2", "password"));
+    public void testSetFirstName() {
+        s0.setFirstName("Ron");
+        s1.setFirstName("Ginny");
+        t0.setFirstName("Ron");
+        t1.setFirstName("Ginny");
+        assertEquals(s0, new Student("Ron", "F", "Weasley", "1", "password"));
+        assertEquals(s1, new Student("Ginny", "G", "Weasley", "2", "password"));
+        assertEquals(t0, new Teacher("Ron", "F", "Weasley", "1", "password"));
+        assertEquals(t1, new Teacher("Ginny", "G", "Weasley", "2", "password"));
     }
     
-
+    /**
+     * Testing for User.getMiddleName()
+     */
+    @Test
+    public void testGetMiddleName() {
+        assertEquals(s0.getMiddleName(), "F");
+        assertEquals(s1.getMiddleName(), "G");
+        assertEquals(t0.getMiddleName(), "F");
+        assertEquals(t1.getMiddleName(), "G");
+    }
+    
+    /**
+     * Testing for User.setMiddleName()
+     */
+    @Test
+    public void testSetMiddleName() {
+        s0.setMiddleName("R");
+        s1.setMiddleName("B");
+        t0.setMiddleName("R");
+        t1.setMiddleName("B");
+        assertEquals(s0, new Student("George", "R", "Weasley", "1", "password"));
+        assertEquals(s1, new Student("Fred", "B", "Weasley", "2", "password"));
+        assertEquals(t0, new Teacher("George", "R", "Weasley", "1", "password"));
+        assertEquals(t1, new Teacher("Fred", "B", "Weasley", "2", "password"));
+    }
+    
+    /**
+     * Testing for User.getLastName()
+     */
+    @Test
+    public void testGetLastName() {
+        assertEquals(s0.getLastName(), "Weasley");
+        assertEquals(s1.getLastName(), "Weasley");
+        assertEquals(t0.getLastName(), "Weasley");
+        assertEquals(t1.getLastName(), "Weasley");
+    }
+    
+    /**
+     * Testing for User.setLastName()
+     */
+    @Test
+    public void testSetLastName() {
+        s0.setLastName("Potter");
+        s1.setLastName("Granger");
+        t0.setLastName("Potter");
+        t1.setLastName("Granger");
+        assertEquals(s0, new Student("George", "F", "Potter", "1", "password"));
+        assertEquals(s1, new Student("Fred", "G", "Granger", "2", "password"));
+        assertEquals(t0, new Teacher("George", "F", "Potter", "1", "password"));
+        assertEquals(t1, new Teacher("Fred", "G", "Granger", "2", "password"));
+    }
+    
     /**
      * Testing for User.getID()
      */
     @Test
     public void testGetID() {
-        assertTrue(s0.getID() == "1");
-        assertTrue(s1.getID() == "2");
-        assertTrue(t0.getID() == "1");
-        assertTrue(t1.getID() == "2");
+        assertTrue(s0.getID().equals("1"));
+        assertTrue(s1.getID().equals("2"));
+        assertTrue(t0.getID().equals("1"));
+        assertTrue(t1.getID().equals("2"));
     }
     
     /**
@@ -76,10 +127,10 @@ public class UserTest {
         s1.setID("4");
         t0.setID("3");
         t1.setID("4");
-        assertEquals(s0, new Student("George", "3", "password"));
-        assertEquals(s1, new Student("Fred", "4", "password"));
-        assertEquals(t0, new Teacher("George", "3", "password"));
-        assertEquals(t1, new Teacher("Fred", "4", "password"));
+        assertEquals(s0, new Student("George", "F", "Weasley", "3", "password"));
+        assertEquals(s1, new Student("Fred", "G", "Weasley", "4", "password"));
+        assertEquals(t0, new Teacher("George", "F", "Weasley", "3", "password"));
+        assertEquals(t1, new Teacher("Fred", "G", "Weasley", "4", "password"));
     }
     
     /**
@@ -102,10 +153,10 @@ public class UserTest {
         s1.setPassword("password1");
         t0.setPassword("password2");
         t1.setPassword("password3");
-        assertEquals(s0, new Student("George", "1", "password0"));
-        assertEquals(s1, new Student("Fred", "2", "password1"));
-        assertEquals(t0, new Teacher("George", "1", "password2"));
-        assertEquals(t1, new Teacher("Fred", "2", "password3"));
+        assertEquals(s0, new Student("George", "F", "Weasley", "1", "password0"));
+        assertEquals(s1, new Student("Fred", "G", "Weasley", "2", "password1"));
+        assertEquals(t0, new Teacher("George", "F", "Weasley", "1", "password2"));
+        assertEquals(t1, new Teacher("Fred", "G", "Weasley", "2", "password3"));
     }
     
     /**
@@ -113,10 +164,10 @@ public class UserTest {
      */
     @Test
     public void testEquals() {
-        assertTrue(s0.equals(new Student("George", "1", "password")));
-        assertTrue(s1.equals(new Student("Fred", "2", "password")));
-        assertTrue(t0.equals(new Teacher("George", "1", "password")));
-        assertTrue(t1.equals(new Teacher("Fred", "2", "password")));
+        assertTrue(s0.equals(new Student("George", "F", "Weasley", "1", "password")));
+        assertTrue(s1.equals(new Student("Fred", "G", "Weasley", "2", "password")));
+        assertTrue(t0.equals(new Teacher("George", "F", "Weasley", "1", "password")));
+        assertTrue(t1.equals(new Teacher("Fred", "G", "Weasley", "2", "password")));
         assertFalse(s0.equals(t0));
         assertFalse(s0.equals(s1));
         assertFalse(s1.equals(t1));
@@ -128,13 +179,13 @@ public class UserTest {
     @Test
     public void testHashCode() {
         assertTrue(s0.hashCode() == 
-                new Student("George", "1", "password").hashCode());
+                new Student("George", "F", "Weasley", "1", "password").hashCode());
         assertTrue(s1.hashCode() == 
-                new Student("Fred", "2", "password").hashCode());
+                new Student("Fred", "G", "Weasley", "2", "password").hashCode());
         assertTrue(t0.hashCode() == 
-                new Teacher("George", "1", "password").hashCode());
+                new Teacher("George", "F", "Weasley", "1", "password").hashCode());
         assertTrue(t1.hashCode() == 
-                new Teacher("Fred", "2", "password").hashCode());
+                new Teacher("Fred", "G", "Weasley", "2", "password").hashCode());
     }
     
     /**
@@ -143,13 +194,13 @@ public class UserTest {
     @Test
     public void testToString() {
         assertEquals(s0.toString(), "This User is a Student whose name is "
-                + "George and ID number is 1");
+                + "George F Weasley and ID number is 1");
         assertEquals(s1.toString(), "This User is a Student whose name is "
-                + "Fred and ID number is 2");
+                + "Fred G Weasley and ID number is 2");
         assertEquals(t0.toString(), "This User is a Teacher whose name is "
-                + "George and ID number is 1");
+                + "George F Weasley and ID number is 1");
         assertEquals(t1.toString(), "This User is a Teacher whose name is "
-                + "Fred and ID number is 2");
+                + "Fred G Weasley and ID number is 2");
     }
     
     

@@ -15,8 +15,10 @@ public class Student extends User {
      * @param i the Student's ID number
      * @param pass the Student's password
      */
-    protected Student(String n, String i, String pass) {
-        this.name = n;
+    protected Student(String fn, String mn, String ln, String i, String pass) {
+        this.firstName = fn;
+        this.middleName = mn;
+        this.lastName = ln;
         this.id = i;
         this.password = pass;
     }

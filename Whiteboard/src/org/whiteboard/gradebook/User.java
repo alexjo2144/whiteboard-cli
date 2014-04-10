@@ -5,8 +5,12 @@ package org.whiteboard.gradebook;
  * @author Daniel Wolf <wolf@ccs.neu.edu>
  * @version Mar 30, 2014 */
 public abstract class User {
-    /** The user's name, as a String */
-    protected String name;
+    /** The user's first name, as a String */
+    protected String firstName;
+    /** The User's last name as a String */
+    protected String lastName;
+    /** The User's middle name, as a String */
+    protected String middleName;
     /** The User's id number, much be unique to the user */
     protected String id;
     /** A String representing the User's password, 
@@ -23,16 +27,48 @@ public abstract class User {
      * Sets this User's name to given String, n
      * @param n this User's new name
      */
-    protected void setName(String n) {
-        this.name = n;
+    protected void setFirstName(String n) {
+        this.firstName = n;
     }
     
     /**
      * Gets this user's name
      * @return a String, this user's name
      */
-    protected String getName() {
-        return name;
+    protected String getFirstName() {
+        return firstName;
+    }
+    
+    /**
+     * Gets this User's middle name
+     * @return a String, this User's middle name
+     */
+    protected String getMiddleName() {
+        return this.middleName;
+    }
+    
+    /**
+     * Sets this user's middle name
+     * @param the User's new middle name
+     */
+    protected void setMiddleName(String mn) {
+        this.middleName = mn;
+    }
+    
+    /**
+     * Gets this User's last name
+     * @return a String, this User's last name
+     */
+    protected String getLastName() {
+        return this.lastName;
+    }
+    
+    /**
+     * Sets this User's last name to given String
+     * @param ln
+     */
+    protected void setLastName(String ln) {
+        this.lastName = ln;
     }
     
     /**
@@ -77,7 +113,9 @@ public abstract class User {
     public boolean equals(Object obj) {
         if(obj instanceof User) {
             User temp = (User)obj;
-            if(this.name.equals(temp.getName()) 
+            if(this.firstName.equals(temp.getFirstName())
+                    && this.middleName.equals(temp.getMiddleName())
+                    && this.lastName.equals(temp.getLastName())
                     && this.id.equals(temp.getID())
                     && this.password.equals(temp.getPassword())
                     && this.isTeacher() == (temp.isTeacher())) {
@@ -101,14 +139,15 @@ public abstract class User {
         else {
             ret += "Student ";
         }
-        ret += "whose name is " + this.name + " and ID number is " + this.id;
+        ret += "whose name is " + this.firstName + " " + this.middleName +
+                " " + this.lastName + " and ID number is " + this.id;
         return ret;
     }
     
     @Override
     public int hashCode() {
         int ret = 0;
-        ret += this.name.hashCode() * 173;
+        ret += this.firstName.hashCode() * 173;
         ret += this.id.hashCode() * 787;
         return ret;
     }
