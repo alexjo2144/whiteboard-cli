@@ -16,5 +16,5 @@ public abstract class User {
     
     protected abstract String getName();
     
-    protected abstract Integer getID();
+    protected abstract String getID();
 }

@@ -38,7 +38,7 @@ public class Assignment {
     /** int representing the total points this assignemt is scored out of */
     private int totalPointsPossible;
     /** A Map that maps a student's ID number to their associated grade */
-    private HashMap<Integer, Integer> grades;
+    private HashMap<String, Double> grades;
 
     /////////////////////Non-trivial methods///////////////////////////////////
     /**
@@ -50,9 +50,9 @@ public class Assignment {
      * @throws a NoSuchElementException if given User, student, does not 
      * have a grade for this assignment.  
      */
-    protected Integer getGrade(User student) {
-        if (grades.containsKey(student.getID())) {
-            return grades.get(student.getID());
+    protected Double getGrade(String id) {
+        if (grades.containsKey(id)) {
+            return grades.get(id);
         }
         else {
             throw new NoSuchElementException();
@@ -67,7 +67,7 @@ public class Assignment {
     protected Double calculateAverage() {
         double count = 0;
         double sum = 0;
-        for(Integer i : grades.values()) {
+        for(Double i : grades.values()) {
             count++;
             sum+=i;
         }
@@ -79,7 +79,7 @@ public class Assignment {
      * @return a Double representing the median grade
      */
     protected Double calculateMedian() {
-        List<Integer> sorted = (List<Integer>)grades.values();
+        List<Double> sorted = (List<Double>)grades.values();
         Collections.sort(sorted);
         int size = sorted.size();
         if(sorted.size() % 2 == 0) {
@@ -94,9 +94,9 @@ public class Assignment {
      * Calculates the lowest score on this assignment
      * @return an Integer, the lowest score a student received
      */
-    protected Integer getMin() {
-        int lowest = this.totalPointsPossible;
-        for(Integer i : grades.values()) {
+    protected Double getMin() {
+        double lowest = this.totalPointsPossible;
+        for(Double i : grades.values()) {
             if(i < lowest) {
                 lowest = i;
             }
@@ -108,9 +108,9 @@ public class Assignment {
      * Calculates the highest score on this assignment
      * @return an Integer, the highest score a student received
      */
-    protected Integer getMax() {
-        int highest = 0;
-        for(Integer i : grades.values()) {
+    protected Double getMax() {
+        double highest = 0;
+        for(Double i : grades.values()) {
             if(i > highest) {
                 highest = i;
             }
@@ -125,7 +125,7 @@ public class Assignment {
     protected Double calculateStandardDeviation() {
         Double assignmentAverage = this.calculateAverage();
         double sum = 0;
-        for(Integer i : grades.values()) {
+        for(Double i : grades.values()) {
             sum = sum + (assignmentAverage - i);
         }
         return sum / grades.size();
@@ -134,21 +134,21 @@ public class Assignment {
     /**
      * Adds a new Student and their grade to this assignment
      * If the student already has a grade, the old one is overridden
-     * @param student the User whose grade is being added
+     * @param id the User's id whose grade is being added
      * @param score the grade the student received out of totalPossiblePoints
      */
-    protected void addGrade(User student, int score) {
-        grades.put(student.getID(), score);
+    protected void addGrade(String id, double score) {
+        grades.put(id, score);
     }
     
     /**
      * sets given Student's grade for this assignment to given int
      * If the student doesn't have a grade, this one is inserted
-     * @param student the User whose grade is being added
+     * @param id the User's id whose grade is being added
      * @param score the grade the student received out of totalPossiblePoints
      */
-    protected void setGrade(User student, int score) {
-        grades.put(student.getID(), score);
+    protected void setGrade(String id, double score) {
+        grades.put(id, score);
     }
     
     /**
@@ -247,7 +247,7 @@ public class Assignment {
      * Gets a map representing the grades for all students on this assignment.
      * @return A map from student ID numbers, as an int, to grades, as an int.
      */
-    protected HashMap<Integer, Integer> getAllGrades() {
+    protected HashMap<String, Double> getAllGrades() {
         return this.grades;
     }
 }

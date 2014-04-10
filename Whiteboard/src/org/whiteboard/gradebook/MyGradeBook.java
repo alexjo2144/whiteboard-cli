@@ -72,13 +72,8 @@ public class MyGradeBook {
         return assignments.remove(assignment);
     }
     
-    protected User getUser(String id) {
-        for (User u : students) {
-            if (u.getID().equals(id)) {
-                return u;
-            }
-        }
-        throw new NoSuchElementException("No user defined for that ID");
+    protected Student getStudent(String id) {
+        return students.get(id);
     }
     
     /** Factory method to construct an empty MyGradebook
@@ -190,19 +185,12 @@ public class MyGradeBook {
      *         otherwise */
     public boolean changeGrade(String assignmentName, String username,
             double newGrade) {
-        User student = getUser(username);
-        if (student instanceof Student) {
-            student = (Student) student;
-            if (assignments.containsKey(assignmentName)) {
-                return assignments.get(assignmentName).getGrade(username)
-                        .setPoints(newGrade);
-            }
-            else {
-                throw new NoSuchElementException("Assignment name not defined");
-            }
+        if (assignments.containsKey(assignmentName)) {
+            assignments.get(assignmentName).setGrade(username, newGrade);
+            return true;
         }
         else {
-            throw new UnsupportedOperationException("User is not a student");
+            throw new NoSuchElementException("Assignment name not defined");
         }
     }
     
@@ -212,7 +200,7 @@ public class MyGradeBook {
      *            name of the assignment
      * @return the average across all students for assignmentName */
     public double average(String assignmentName) {
-        
+        return getAssignment(assignmentName).calculateAverage();
     }
     
     /** Calculates the median across all students for a given assignment
@@ -221,7 +209,7 @@ public class MyGradeBook {
      *            name of the assignment
      * @return the median across all students for assignmentName */
     public double median(String assignmentName) {
-        
+        return getAssignment(assignmentName).calculateMedian();
     }
     
     /** Calculates the min across all students for a given assignment
@@ -230,7 +218,7 @@ public class MyGradeBook {
      *            name of the assignment
      * @return the min across all students for assignmentName */
     public double min(String assignmentName) {
-        
+        return getAssignment(assignmentName).getMin();
     }
     
     /** Calculates the max across all students for a given assignment
@@ -239,7 +227,7 @@ public class MyGradeBook {
      *            name of the assignment
      * @return the max across all students for assignmentName */
     public double max(String assignmentName) {
-        
+        return getAssignment(assignmentName).getMax();
     }
     
     /** Calculates the current grade for the given student
@@ -291,7 +279,7 @@ public class MyGradeBook {
      *            username for the student
      * @return the grade earned by username for assignmentName */
     public double assignmentGrade(String assignmentName, String username) {
-        
+        return assignments.get(username).getGrade(username);
     }
     
     /** Provide a String that contains the current grades of all students in
