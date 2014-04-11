@@ -14,9 +14,8 @@ public class Teacher extends User {
      * @param i The Teacher's ID number
      * @param pass The Teacher's password
      */
-    protected Teacher(String fn, String mn, String ln, String i, String pass) {
+    protected Teacher(String fn, String ln, String i, String pass) {
         this.firstName = fn;
-        this.middleName = mn;
         this.lastName = ln;
         this.id = i;
         this.password = pass;

@@ -9,16 +9,19 @@ package org.whiteboard.gradebook;
 public class Student extends User {
     /** Graduation year of the student */
     protected String graduationYear;
+    /** The User's advisor's name, as a String */
+    protected String advisor;
+    
     
     /** Creates a new Student with given parameters
      * 
      * @param n the Student's name
      * @param i the Student's ID number
      * @param pass the Student's password */
-    protected Student(String fn, String mn, String ln, String i, String grad,
+    protected Student(String fn, String ln, String adv, String i, String grad,
             String pass) {
         this.firstName = fn;
-        this.middleName = mn;
+        this.advisor = adv;
         this.lastName = ln;
         this.id = i;
         this.graduationYear = grad;
@@ -46,4 +49,20 @@ public class Student extends User {
     protected void setGraduationYear(String grad) {
         graduationYear = grad;
     }
+    
+    /** Gets this User's advisor's name
+     * 
+     * @return a String, this User's advisor's name */
+    protected String getAdvisor() {
+        return this.advisor;
+    }
+    
+    /** Sets this user's advisor's name
+     * 
+     * @param the
+     *            User's new advisor */
+    protected void setAdvisor(String adv) {
+        this.advisor = adv;
+    }
+    
 }

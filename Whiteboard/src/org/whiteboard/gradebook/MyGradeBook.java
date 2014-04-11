@@ -401,8 +401,8 @@ public class MyGradeBook {
         
         export += s.getID() + "\n";
         export += s.getFirstName() + "\n";
-        export += s.getMiddleName() + "\n";
         export += s.getLastName() + "\n";
+        export += s.getAdvisor() + "\n";
         export += s.getGraduationYear() + "\n";
         
         export += "----\n";
@@ -500,8 +500,8 @@ public class MyGradeBook {
         for (String s : sts) {
             Student st = getStudent(s);
             export +=
-                    s + "\t" + st.getFirstName() + "\t" + st.getMiddleName()
-                            + "\t" + st.getLastName() + "\t"
+                    s + "\t" + st.getFirstName() + "\t" + st.getLastName()
+                            + "\t" + st.getAdvisor() + "\t"
                             + st.getGraduationYear();
             
             for (String assn : assignmentOrder) {

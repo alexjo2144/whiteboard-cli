@@ -9,8 +9,6 @@ public abstract class User {
     protected String firstName;
     /** The User's last name as a String */
     protected String lastName;
-    /** The User's middle name, as a String */
-    protected String middleName;
     /** The User's id number, much be unique to the user */
     protected String id;
     /** A String representing the User's password, used for logging into the
@@ -36,22 +34,7 @@ public abstract class User {
     protected String getFirstName() {
         return firstName;
     }
-    
-    /** Gets this User's middle name
-     * 
-     * @return a String, this User's middle name */
-    protected String getMiddleName() {
-        return this.middleName;
-    }
-    
-    /** Sets this user's middle name
-     * 
-     * @param the
-     *            User's new middle name */
-    protected void setMiddleName(String mn) {
-        this.middleName = mn;
-    }
-    
+
     /** Gets this User's last name
      * 
      * @return a String, this User's last name */
@@ -107,7 +90,6 @@ public abstract class User {
         if (obj instanceof User) {
             User temp = (User) obj;
             if (this.firstName.equals(temp.getFirstName())
-                    && this.middleName.equals(temp.getMiddleName())
                     && this.lastName.equals(temp.getLastName())
                     && this.id.equals(temp.getID())
                     && this.password.equals(temp.getPassword())
@@ -133,9 +115,8 @@ public abstract class User {
             ret += "Student ";
         }
         ret +=
-                "whose name is " + this.firstName + " " + this.middleName
-                        + " " + this.lastName + " and ID number is "
-                        + this.id;
+                "whose name is " + this.firstName + " " + this.lastName +
+                " and ID number is " + this.id;
         return ret;
     }
     
