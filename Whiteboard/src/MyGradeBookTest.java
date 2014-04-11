@@ -52,8 +52,8 @@ public class MyGradeBookTest {
     public void initials() {
         
         // Gradebooks
-        this.kGB0 = MyGradeBook.initialize();
         try {
+            this.kGB0 = MyGradeBook.initialize();
             this.kGB1 = MyGradeBook.initializeWithFile("initial.txt");
         }
         catch (FileNotFoundException e) {
@@ -66,5 +66,33 @@ public class MyGradeBookTest {
         
         // Grades
     }
+    
+    /**
+     * Tests the initial GradeBook
+     */
+    @Test
+    public void testInitialize() {
+        assertTrue(this.kGB0.equals(MyGradeBook.initialize()));
+        assertFalse(this.kGB1.equals(MyGradeBook.initialize()));
+    }
+    
+    /**
+     * Tests the processing methods
+     */
+    @Test
+    public void testProcessFile() {
+        try {
+            assertTrue(this.kGB0.initializeWithFile(
+                    "initial.txt").equals(this.kGB1));
+            assertTrue(this.kGB1.outputGradebook().equals(
+                    MyGradeBook.initializeWithFile(
+                            "initial.txt").outputGradebook()));
+        }
+        catch (FileNotFoundException e) {
+            assertTrue(false);
+        }
+    }
+    
+    
 
 }
