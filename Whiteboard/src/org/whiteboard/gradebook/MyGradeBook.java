@@ -549,4 +549,37 @@ public class MyGradeBook {
     public List<String> getAssignmentOrder() {
         return this.assignmentOrder;
     }
+
+    /**
+     * Checks if this MyGradeBook is equal to given Object
+     * @param obj the object equality is being checked agaist
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof MyGradeBook) {
+            MyGradeBook temp = (MyGradeBook)obj;
+            if(this.students.equals(temp.students) 
+                    && this.assignments.equals(temp.assignments)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+    
+    /**
+     * creates an int hash of this MyGradeBook
+     * @retun an int hash
+     */
+    @Override 
+    public int hashCode() {
+        int hash = 0;
+        hash += assignments.hashCode() * 2411;
+        hash += students.hashCode() * 2371;
+        return hash;
+    }
 }
