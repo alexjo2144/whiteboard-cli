@@ -1,6 +1,5 @@
 package org.whiteboard.gradebook;
 
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -120,18 +119,6 @@ public class Assignment {
         return highest;
     }
     
-    /**
-     * Calculates the Standard Deviation on this assignment
-     * @return a Double representing the SD
-     */
-    protected Double calculateStandardDeviation() {
-        Double assignmentAverage = this.calculateAverage();
-        double sum = 0;
-        for(Double i : grades.values()) {
-            sum = sum + (assignmentAverage - i);
-        }
-        return sum / grades.size();
-    }
     
     /**
      * Adds a new Student and their grade to this assignment

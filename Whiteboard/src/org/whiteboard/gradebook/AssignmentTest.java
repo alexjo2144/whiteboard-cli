@@ -13,7 +13,6 @@ import org.junit.runners.JUnit4;
  * Testing suite for the Assignment class
  * @author Alex Jo <jo.al@husky.neu.edu>
  * @version 4/8/14
- *
  */
 
 @RunWith(JUnit4.class) 
@@ -24,25 +23,15 @@ public class AssignmentTest {
     private Assignment ass1;
     private Assignment ass2;
     private Assignment ass3;
-    private Student s0;
-    private Student s1;
-    private Student s2;
-    private Student s3;
-    private Student s4;
+    private Assignment ass4;
     
     @Before
     public void initialize() {
-        ass0 = new Assignment("Ass0", "Test", "A test", 100, 10);
-        ass1 = new Assignment("Ass1", "Quiz", "A quiz", 25, 5);
-        ass2 = new Assignment("Ass2", "HW", "A homework assignment", 10, 2);
-        ass3 = new Assignment("Ass3", "Participation", 
-                "in class participation", 15, 1);
-        
-        s0 = new Student("Fred", "G", "Weasley", "0", "password");
-        s1 = new Student("George", "F", "Weasley", "1", "password");
-        s2 = new Student("Ron", "G", "Weasley", "2", "password");
-        s3 = new Student("Ginny", "G", "Weasley", "3", "password");
-        s4 = new Student("Bill", "G", "Weasley", "4", "password");
+        ass0 = new Assignment("Ass0", "A test", "Test",  100, 10);
+        ass1 = new Assignment("Ass1", "A quiz", "Quiz", 25, 5);
+        ass2 = new Assignment("Ass2", "A homework assignment", "HW", 10, 2);
+        ass3 = new Assignment("Ass3", "In class participation", 
+                "Participation", 15, 1);
         
         ass0.addGrade("Fred", 100);
         ass0.addGrade("George", 85);
@@ -136,4 +125,170 @@ public class AssignmentTest {
         assertTrue(ass2.getMax() == 10);
         assertTrue(ass3.getMax() == 10);
     }
+    
+    /**
+     * Testing for Assignment.addGrade()
+     */
+    @Test
+    public void testSetGrade() {
+        ass0.setGrade("Fred", 99);
+        ass0.setGrade("Harry", 10);
+        assertTrue(ass0.getGrade("Fred") == 99);
+        assertTrue(ass0.getGrade("Harry") == 10);
+    }
+    /**
+     * Testing for Assignment.equals()
+     */
+    @Test
+    public void testEquals() {
+    ass4 = new Assignment("Ass0", "A test", "Test", 100, 10);    
+    ass4.addGrade("Fred", 100);
+    ass4.addGrade("George", 85);
+    ass4.addGrade("Ron", 90);
+    ass4.addGrade("Ginny", 50);
+    assertTrue(ass0.equals(ass4));
+    assertFalse(ass0.equals(ass1));
+    assertFalse(ass0.equals(ass2));
+    assertFalse(ass0.equals(ass3));
+    }
+    
+    /**
+     * Testing for Assignment.getName()
+     */
+    @Test
+    public void testGetName() {
+        assertEquals(ass0.getName(), "Ass0");
+        assertEquals(ass1.getName(), "Ass1");
+        assertEquals(ass2.getName(), "Ass2");
+        assertEquals(ass3.getName(), "Ass3");
+    }
+
+    /**
+     * Testing for Assignment.getKind()
+     */
+    @Test
+    public void testGetKind() {
+        assertEquals(ass0.getKind(), "Test");
+        assertEquals(ass1.getKind(), "Quiz");
+        assertEquals(ass2.getKind(), "HW");
+        assertEquals(ass3.getKind(), "Participation");
+    }
+    
+    /**
+     * Testing for Assignment.getDescription()
+     */
+    @Test
+    public void testGetDescription() {
+        assertEquals(ass0.getDescription(), "A test");
+        assertEquals(ass1.getDescription(), "A quiz");
+        assertEquals(ass2.getDescription(), "A homework assignment");
+        assertEquals(ass3.getDescription(), "In class participation");
+    }
+    
+    /**
+     * Testing for Assignment.getTotalPointsPossible()
+     */
+    @Test
+    public void testGetTotalPointsPossible() {
+        assertTrue(ass0.getTotalPointsPossible() == 100);
+        assertTrue(ass1.getTotalPointsPossible() == 25);
+        assertTrue(ass2.getTotalPointsPossible() == 10);
+        assertTrue(ass3.getTotalPointsPossible() == 15);
+    }
+    
+    /**
+     * Testing for Assignment.getWeight()
+     */
+    @Test
+    public void testGetWeight() {
+        assertTrue(ass0.getWeight() == 10);
+        assertTrue(ass1.getWeight() == 5);
+        assertTrue(ass2.getWeight() == 2);
+        assertTrue(ass3.getWeight() == 1);
+    }
+    
+    /**
+     * Testing for Assignment.setName()
+     */
+    @Test
+    public void testSetName() {
+        ass4 = new Assignment("Ass4", "A test", "Test",  100, 10);
+        ass4.addGrade("Fred", 100);
+        ass4.addGrade("George", 85);
+        ass4.addGrade("Ron", 90);
+        ass4.addGrade("Ginny", 50);
+        
+        ass0.setName("Ass4");
+        
+        assertEquals(ass4, ass0);
+    }
+    
+    /**
+     * Testing for Assignment.setDescription()
+     */
+    @Test
+    public void testSetDescription() {
+        ass4 = new Assignment("Ass0", "A Quiz", "Test",  100, 10);
+        ass4.addGrade("Fred", 100);
+        ass4.addGrade("George", 85);
+        ass4.addGrade("Ron", 90);
+        ass4.addGrade("Ginny", 50);
+        
+        ass0.setDescription("A Quiz");
+        
+        assertEquals(ass4, ass0);
+    }
+    
+    /**
+     * Testing for Assignment.setName()
+     */
+    @Test
+    public void testSetKind() {
+        ass4 = new Assignment("Ass0", "A test", "Quiz",  100, 10);
+        ass4.addGrade("Fred", 100);
+        ass4.addGrade("George", 85);
+        ass4.addGrade("Ron", 90);
+        ass4.addGrade("Ginny", 50);
+        
+        ass0.setKind("Quiz");
+        
+        assertEquals(ass4, ass0);
+    }
+    
+    /**
+     * Testing for Assignment.setTotalPointsPossible()
+     */
+    @Test
+    public void testSetTotalPossiblePoints() {
+        ass4 = new Assignment("Ass0", "A test", "Test",  150, 10);
+        ass4.addGrade("Fred", 100);
+        ass4.addGrade("George", 85);
+        ass4.addGrade("Ron", 90);
+        ass4.addGrade("Ginny", 50);
+        
+        ass0.setTotalPointsPossible(150);
+        
+        assertEquals(ass4, ass0);
+    }
+    
+    
+    
+    /**
+     * Testing for Assignment.setWeight()
+     */
+    @Test
+    public void testSetWeight() {
+        ass4 = new Assignment("Ass0", "A test", "Test",  100, 5);
+        ass4.addGrade("Fred", 100);
+        ass4.addGrade("George", 85);
+        ass4.addGrade("Ron", 90);
+        ass4.addGrade("Ginny", 50);
+        
+        ass0.setWeight(5);
+        
+        assertEquals(ass4, ass0);
+    }
+    
+    
+    
 }

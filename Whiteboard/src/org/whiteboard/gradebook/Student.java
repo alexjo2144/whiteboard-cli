@@ -3,7 +3,7 @@
  */
 package org.whiteboard.gradebook;
 
-/** Student
+/** Class representing a Student
  * @author Daniel Wolf <wolf@ccs.neu.edu>
  * @version Mar 30, 2014
  *

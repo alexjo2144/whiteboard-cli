@@ -6,6 +6,12 @@ import org.junit.Test;
 import org.junit.runner.*;
 import org.junit.runners.JUnit4;
 
+/**
+ * Testing suite for the User, Student, and Teacher classes
+ * @author Alex Jo
+ * @version 4/11/14
+ *
+ */
 @RunWith(JUnit4.class)
 public class UserTest {
     
