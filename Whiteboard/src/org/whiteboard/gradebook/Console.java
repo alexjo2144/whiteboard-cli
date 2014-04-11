@@ -10,7 +10,7 @@ import java.util.Scanner;
  * Handles the user interface of the gradebook
  * 
  * @author Patrick Fox fox.pat@husky.neu.edu
- * @version 1.0 
+ * @version 1.0
  */
 public class Console {
 
@@ -88,13 +88,14 @@ public class Console {
                 "(8) Output Assignment information to a file",
                 "(9) Output Student information to a file",
                 "(10) Output Grade Information to a file",
+                "(11) Print entire gradebook to console",
                 "Please make a choice and hit enter: " };
-        
+
         System.out.println("What would you like to do?");
         for (String s : prompts) {
             System.out.println(s);
         }
-        int in = getInputInt(1, 10);
+        int in = getInputInt(1, 11);
         switch (in) {
         case 1:
             addStudents();
@@ -126,13 +127,15 @@ public class Console {
         case 10:
             outputGrades();
             break;
+        case 11:
+            printGradeBook();
+            break;
         default:
             break;
         }
         System.out.println("Done! Returning to the main menu...\n\n");
         runOptions();
     }
-    
 
     /**
      * Gets a single line of user input and Closes the program if 'quit' is
@@ -196,8 +199,11 @@ public class Console {
         int in = getInputInt(1, 2);
         if (in == 1) {
             System.out.println("Please enter the " + classification
-                    + "'s information: ");
-            String input = s.next();
+                    + " information: ");
+            String input = "";
+            while(s.hasNextLine()) {
+                input += s.nextLine() + "\t";
+            }
             try {
                 gb.processString(input);
             }
@@ -216,27 +222,31 @@ public class Console {
             }
         }
     }
+
     /**
      * Prompts the user to input student information and processes it
      */
-    private void addStudents() {    
+    private void addStudents() {
         add("Student");
     }
+
     /**
      * Prompts the user to input assignment information and processes it
      */
     private void addAssignments() {
         add("Assignment");
     }
+
     /**
      * Prompts the user to input grade information and processes it
      */
     private void addGrade() {
         add("Grade");
     }
+
     /**
-     * Prompts the user to input grade information for one student and assignment
-     *  and processes it
+     * Prompts the user to input grade information for one student and
+     * assignment and processes it
      */
     private void changeGrade() {
         boolean flag = false;
@@ -251,6 +261,7 @@ public class Console {
             try {
                 newGrade = Double.parseDouble(getInput());
                 gb.changeGrade(ass, stud, newGrade);
+                flag = false;
             }
             catch (NumberFormatException e) {
                 System.out.println("The grade was not a valid decimal");
@@ -291,12 +302,12 @@ public class Console {
     }
 
     private void getStudentInfo() {
-        System.out.println("Please enter the student's name: ");
+        System.out.println("Please enter the student's username: ");
         String name = getInput();
         try {
             System.out.println(gb.outputStudentGrades(name));
         }
-        catch(NoSuchElementException e) {
+        catch (NoSuchElementException e) {
             System.out.println("Not a valid name");
         }
     }
@@ -311,30 +322,45 @@ public class Console {
         catch (FileNotFoundException e) {
             System.out.println("Error in creating the file");
         }
-        
+
     }
+
     private void outputGrades() {
-        System.out.println("What would you like the file to be called? (no .txt suffix)");
+        System.out
+                .println("What would you like the file to be called? (no .txt suffix)");
         String name = getInput() + ".txt";
-        String s = gb.outputCurrentGrades();
-        writeToFile(s, name);
+        String str = gb.outputCurrentGrades();
+        writeToFile(str, name);
     }
+
     private void outputStudent() {
-        System.out.println("What would you like the student's file to be called? (no .txt suffix");
+        System.out.println("What is the student's name?");
         String name = getInput() + ".txt";
-        String s = gb.outputStudentGrades(name);
-        writeToFile(s, name);
+        System.out.println("What would you like the student's "
+                + "file to be called? (no .txt suffix)");
+        String fileName = getInput() + ".txt";
+        String str;
+        str = gb.outputStudentGrades(name);
+        writeToFile(str, fileName);
     }
+
     private void outputGradeBook() {
-        System.out.println("What would you like the file to be called? (no .txt suffix");
+        System.out
+                .println("What would you like the file to be called? (no .txt suffix)");
         String name = getInput() + ".txt";
-        String s = gb.outputGradebook();
-        writeToFile(s, name);
+        String str = gb.outputGradebook();
+        writeToFile(str, name);
     }
+
     private void outputAss() {
-        System.out.println("What would you like the assignment file to be called? (no .txt suffix");
+        System.out
+                .println("What would you like the assignment file to be called? (no .txt suffix)");
         String name = getInput() + ".txt";
-        String s = gb.outputAssignmentGrades(name);
-        writeToFile(s, name);
+        String str = gb.outputAssignmentGrades(name);
+        writeToFile(str, name);
+    }
+    private void printGradeBook() {
+        String str = gb.outputGradebook();
+        System.out.println(str);
     }
 }
