@@ -20,10 +20,6 @@ import java.util.Scanner;
  * @author Daniel Wolf <wolf@ccs.neu.edu>
  * @version April 11, 2014 */
 public class MyGradeBook {
-    private String name;
-    private String description;
-    private Integer sectionID;
-    
     private Map<String, Student> students;
     private Map<String, Assignment> assignments;
     private List<String> assignmentOrder;
@@ -32,10 +28,6 @@ public class MyGradeBook {
         students = new HashMap<String, Student>();
         assignments = new HashMap<String, Assignment>();
         assignmentOrder = new ArrayList<String>();
-        
-        setName("");
-        setDescription("");
-        setSectionID(0);
     }
     
     /** Get a list of all assignments stored in MyGradeBook
@@ -500,8 +492,10 @@ public class MyGradeBook {
         export += "\n";
         // Students and grades
         // Get and sort students by alphabetical, case insensitive order.
-        List<String> sts =
-                Arrays.asList((String[]) students.keySet().toArray());
+        List<String> sts = new ArrayList<String>();
+        for(String str : students.keySet()) {
+            sts.add(str);
+        }
         Collections.sort(sts, String.CASE_INSENSITIVE_ORDER);
         for (String s : sts) {
             Student st = getStudent(s);
@@ -517,30 +511,6 @@ public class MyGradeBook {
         }
         
         return export;
-    }
-    
-    public Integer getSectionID() {
-        return sectionID;
-    }
-    
-    public void setSectionID(Integer sectionID) {
-        this.sectionID = sectionID;
-    }
-    
-    public String getName() {
-        return name;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public String getDescription() {
-        return description;
-    }
-    
-    public void setDescription(String description) {
-        this.description = description;
     }
     
     public List<String> getAssignmentOrder() {

@@ -1,0 +1,29 @@
+import static org.junit.Assert.*;
+import org.whiteboard.gradebook.*;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.*;
+import org.junit.runners.JUnit4;
+
+/**
+ * Testing suite for Black Box testing
+ * 
+ * @author jacobginsparg <jgins@ccs.neu.edu>
+ * @version 4/11/2014
+ */
+@RunWith(JUnit4.class)
+public class MyGradeBookTest {
+	
+	// Constants
+	
+	private MyGradeBook koolGB0;
+	
+	private Assignment myAss0;
+	private Assignment myAss1;
+	private Assignment myAss2;
+	
+	@Before
+	public void initials() {
+		this.myAss0 = MyGradeBook.initialize();
+	}
+}

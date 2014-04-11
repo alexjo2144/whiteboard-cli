@@ -1,0 +1,19 @@
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.*;
+import org.junit.runners.JUnit4;
+
+/**
+ * Testing suite for Black Box testing
+ * 
+ * @author jacobginsparg <jgins@ccs.neu.edu>
+ * @version 4/11/2014
+ */
+@RunWith(JUnit4.class)
+public class MyGradeBookTest {
+	
+	
+	
+}
