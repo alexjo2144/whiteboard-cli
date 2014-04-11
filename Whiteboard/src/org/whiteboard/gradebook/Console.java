@@ -9,10 +9,6 @@ import java.util.Scanner;
  * 
  * @author Patrick Fox fox.pat@husky.neu.edu
  * @version 1.0 
- * Not working
- * calcStats() - needs printAssignment()
- * printAssignment()
- * getStudentInfo()
  */
 public class Console {
 
