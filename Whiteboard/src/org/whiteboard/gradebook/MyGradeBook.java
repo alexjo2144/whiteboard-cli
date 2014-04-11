@@ -194,6 +194,9 @@ public class MyGradeBook {
         if (lines[0].equals("ASSIGNMENT")) {
             addAssignment(lines[1], new Assignment(lines[1], "", "",
                     new Double(lines[2]), new Double(lines[3])));
+            for(Student student : students.values()) {
+                assignments.get(lines[1]).addGrade(student.id, 0);
+            }
             // if more steps need to be taken, combine lines and pass
             // recursively.
             if (lines.length > 4) {
