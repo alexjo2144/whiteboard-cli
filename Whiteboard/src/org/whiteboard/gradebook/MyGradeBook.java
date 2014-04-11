@@ -23,64 +23,70 @@ public class MyGradeBook {
     private Map<String, Student> students;
     private Map<String, Assignment> assignments;
     private List<String> assignmentOrder;
-    
+
     private MyGradeBook() {
         students = new HashMap<String, Student>();
         assignments = new HashMap<String, Assignment>();
         assignmentOrder = new ArrayList<String>();
     }
-    
+
     /** Get a list of all assignments stored in MyGradeBook
      * 
      * @return a list of all assignments in MyGradeBook */
     protected Map<String, Assignment> getAssignments() {
         return assignments;
     }
-    
+
     /** Get an Assignment object by its name in string form.
      * Case-insensitive.
      * 
      * @param name
      *            the name of the assignment.
-     * @return the resulting assignment, or throws a NoSuchElementException
-     *         if the assignment does not exist. */
-    protected Assignment getAssignment(String name) {
-        return assignments.get(name);
+     * @return the resulting assignment,  
+     * @throws a NoSuchElementException if the assignment does not exist. 
+     */
+    protected Assignment getAssignment(String name) throws NoSuchElementException{
+        if(assignments.containsKey(name)) {
+            return assignments.get(name);
+        }
+        else {
+            throw new NoSuchElementException("Assignment does not exist");
+        } 
     }
-    
+
     protected boolean addStudent(String name, Student student) {
         students.put(name, student);
         return true;
     }
-    
+
     protected boolean dropStudent(Student student) {
         students.remove(student);
         return true;
     }
-    
+
     protected boolean addAssignment(String name, Assignment assignment) {
         assignments.put(name, assignment);
         assignmentOrder.add(name);
         return true;
     }
-    
+
     protected boolean dropAssignment(String name) {
         assignments.remove(name);
         assignmentOrder.remove(name);
         return true;
     }
-    
+
     protected Student getStudent(String id) {
         return students.get(id);
     }
-    
+
     /** Factory method to construct an empty MyGradebook
      * 
      * @return an empty MyGradeBook */
     public static MyGradeBook initialize() {
         return new MyGradeBook();
     }
-    
+
     /** Factory method to construct a MyGradebook that contains the grade
      * book from filename
      * 
@@ -94,15 +100,15 @@ public class MyGradeBook {
         File f = new File(filename);
         Scanner s;
         s = new Scanner(f);
-        
+
         String fileString = "";
         while (s.hasNextLine()) {
             fileString += s.nextLine() + "\n";
         }
-        
+
         return initializeWithString(fileString);
     }
-    
+
     /** Factory method to construct a MyGradebook that contains the grade
      * book from startingString
      * 
@@ -119,12 +125,12 @@ public class MyGradeBook {
                 String[] assignments = lines[1].split("\t");
                 String[] pointsOutOf = lines[2].split("\t");
                 String[] pointsGrade = lines[3].split("\t");
-                
+
                 for (int ai = 5; ai < assignments.length; ai++) {
                     gb.addAssignment(assignments[ai], new Assignment(
                             assignments[ai], "", "", new Double(
                                     pointsOutOf[ai]), new Double(
-                                    pointsGrade[ai])));
+                                            pointsGrade[ai])));
                 }
                 // Parse assignment grades
                 for (int l = 4; l < lines.length; l++) {
@@ -132,25 +138,25 @@ public class MyGradeBook {
                     gb.addStudent(student[0], new Student(student[1],
                             student[2], student[3], student[0], student[4],
                             student[0]));
-                    
+
                     for (int grade = 5; grade < student.length; grade++) {
                         gb.getAssignment(assignments[grade]).addGrade(
                                 student[0], new Double(student[grade]));
                     }
                 }
-                
+
                 return gb;
             }
             else {
                 throw new RuntimeException("File is not a valid Gradebook");
             }
-            
+
         }
         catch (IndexOutOfBoundsException e) {
             throw new RuntimeException("File is not a valid Gradebook");
         }
     }
-    
+
     /** Add to the state of this grade book---new assignments, new students,
      * new grades---by processing filename
      * 
@@ -166,19 +172,19 @@ public class MyGradeBook {
             File f = new File(filename);
             Scanner s;
             s = new Scanner(f);
-            
+
             String fileString = "";
             while (s.hasNextLine()) {
                 fileString += s.nextLine() + "\n";
             }
-            
+
             processString(fileString);
         }
         catch (FileNotFoundException e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
     }
-    
+
     /** Add to the state of this grade book---new assignments, new students,
      * new grades---by processing additionalString
      * 
@@ -210,6 +216,9 @@ public class MyGradeBook {
         else if (lines[0].equals("STUDENT")) {
             addStudent(lines[1], new Student(lines[2], lines[3], lines[4],
                     lines[1], lines[5], lines[1]));
+            for(Assignment a : this.assignments.values()) {
+                a.addGrade(lines[1], 0);
+            }
             // if more steps need to be taken, combine lines and pass
             // recursively.
             if (lines.length > 6) {
@@ -240,7 +249,7 @@ public class MyGradeBook {
             throw new RuntimeException("Unexpected Operation Type");
         }
     }
-    
+
     /** Changes the assignment (named assignmentName) grade for student
      * (whose username is equal to username) to newGrade
      * 
@@ -252,18 +261,22 @@ public class MyGradeBook {
      *            the new grade for the given assignment and student
      * @return whether there was a grade to change. Returns true if the
      *         given assignment/student combination exists, returns false
-     *         otherwise */
+     *         otherwise 
+     * @throws NoSuchElementException if given assigmentName or username do 
+     * not exist
+     * */
     public boolean changeGrade(String assignmentName, String username,
-            double newGrade) {
+            double newGrade) throws NoSuchElementException {
         if (assignments.containsKey(assignmentName)) {
             assignments.get(assignmentName).setGrade(username, newGrade);
             return true;
         }
         else {
-            return false;
+            throw new NoSuchElementException("Given username or assignment"
+                    + "does not exist");
         }
     }
-    
+
     /** Calculates the average across all students for a given assignment
      * 
      * @param assignmentName
@@ -272,7 +285,7 @@ public class MyGradeBook {
     public double average(String assignmentName) {
         return getAssignment(assignmentName).calculateAverage();
     }
-    
+
     /** Calculates the median across all students for a given assignment
      * 
      * @param assignmentName
@@ -281,7 +294,7 @@ public class MyGradeBook {
     public double median(String assignmentName) {
         return getAssignment(assignmentName).calculateMedian();
     }
-    
+
     /** Calculates the min across all students for a given assignment
      * 
      * @param assignmentName
@@ -290,7 +303,7 @@ public class MyGradeBook {
     public double min(String assignmentName) {
         return getAssignment(assignmentName).getMin();
     }
-    
+
     /** Calculates the max across all students for a given assignment
      * 
      * @param assignmentName
@@ -299,7 +312,7 @@ public class MyGradeBook {
     public double max(String assignmentName) {
         return getAssignment(assignmentName).getMax();
     }
-    
+
     /** Calculates the current grade for the given student
      * 
      * @param username
@@ -317,14 +330,14 @@ public class MyGradeBook {
     public double currentGrade(String username) {
         Double sumRelativeAssignmentGrades = new Double(0);
         Double sumTotal = new Double(0);
-        
+
         for (Assignment a : assignments.values()) {
             try {
                 sumRelativeAssignmentGrades +=
                         (a.getGrade(username) * a.getTotalPointsPossible())
-                                * a.getWeight();
+                        * a.getWeight();
                 sumTotal += a.getTotalPointsPossible() * a.getWeight();
-                
+
             }
             catch (NoSuchElementException e) {
                 // Do nothing, the student just missed this assignment and
@@ -333,7 +346,7 @@ public class MyGradeBook {
         }
         return 100d * (sumRelativeAssignmentGrades / sumTotal);
     }
-    
+
     /** Calculates the current grade for all students
      * 
      * @return HashMap of the current grades for all students. The key of
@@ -355,7 +368,7 @@ public class MyGradeBook {
         }
         return currentGrades;
     }
-    
+
     /** Provides the grade earned by the given student for the given
      * assignment
      * 
@@ -367,7 +380,7 @@ public class MyGradeBook {
     public double assignmentGrade(String assignmentName, String username) {
         return assignments.get(assignmentName).getGrade(username);
     }
-    
+
     /** Provide a String that contains the current grades of all students in
      * the course
      * 
@@ -378,15 +391,15 @@ public class MyGradeBook {
      *         will be listed alphabetically. */
     public String outputCurrentGrades() {
         HashMap<String, Double> grades = currentGrades();
-        
+
         String output = "CURRENT_GRADES\n";
         for (String student : grades.keySet()) {
             output += student + "\t" + grades.get(student) + "\n";
         }
-        
+
         return output;
     }
-    
+
     /** Provide a String that contains the current grades of the given
      * student
      * 
@@ -397,33 +410,42 @@ public class MyGradeBook {
      *         studentGrades.txt---STUDENT_GRADES heading, student info,
      *         dividers, each assignment (assignment name followed by tab
      *         and assignment grade), and current grade. Assignments are to
-     *         remain in the same order as given. */
-    public String outputStudentGrades(String username) {
-        Student s = getStudent(username);
-        String export = "STUDENT_GRADES\n";
-        
-        export += s.getID() + "\n";
-        export += s.getFirstName() + "\n";
-        export += s.getLastName() + "\n";
-        export += s.getAdvisor() + "\n";
-        export += s.getGraduationYear() + "\n";
-        
-        export += "----\n";
-        
-        for (String assignmentName : assignmentOrder) {
-            export +=
-                    assignmentName + "\t"
-                            + assignmentGrade(assignmentName, username)
-                            + "\n";
+     *         remain in the same order as given.
+     * @throws noSuchElementException is a student without given username 
+     * does not exist*/
+    public String outputStudentGrades(String username) throws NoSuchElementException{
+        if(students.containsKey(username)) {
+            Student s = getStudent(username);
+            String export = "STUDENT_GRADES\n";
+
+            export += s.getID() + "\n";
+            export += s.getFirstName() + "\n";
+            export += s.getLastName() + "\n";
+            export += s.getAdvisor() + "\n";
+            export += s.getGraduationYear() + "\n";
+
+            export += "----\n";
+
+            for (String assignmentName : assignmentOrder) {
+                export +=
+                        assignmentName + "\t"
+                                + assignmentGrade(assignmentName, username)
+                                + "\n";
+
+            }
+
+            export += "----\n";
+
+            export += "CURRENT GRADE\t" + currentGrade(username);
+
+            return export;
         }
-        
-        export += "----\n";
-        
-        export += "CURRENT GRADE\t" + currentGrade(username);
-        
-        return export;
+        else {
+            throw new NoSuchElementException("Student with given username "
+                    + "does not exist");
+        }
     }
-    
+
     /** Provide a String that contains the assignment grades of all students
      * in the course for the given assignment
      * 
@@ -439,11 +461,11 @@ public class MyGradeBook {
     public String outputAssignmentGrades(String assignName) {
         String export = "ASSIGNMENT_GRADES\n";
         Assignment a = getAssignment(assignName);
-        
+
         export += assignName + "\n";
         export += a.getTotalPointsPossible() + "\n";
         export += a.getWeight() + "\n";
-        
+
         export += "----\n";
         // Get and sort students by alphabetical, case insensitive order.
         List<String> sts =
@@ -452,18 +474,18 @@ public class MyGradeBook {
         for (String student : sts) {
             export += student + "\t" + a.getGrade(student) + "\n";
         }
-        
+
         export += "----\n";
-        
+
         export += "STATS\n";
         export += "Average\t" + average(assignName) + "\n";
         export += "Median\t" + median(assignName) + "\n";
         export += "Max\t" + max(assignName) + "\n";
         export += "Min\t" + min(assignName) + "\n";
-        
+
         return export;
     }
-    
+
     /** Provide a String that contains the current grade book. This String
      * could be used to initialize a new grade book.
      * 
@@ -479,14 +501,14 @@ public class MyGradeBook {
             export += "\t" + assn;
         }
         export += "\n";
-        
+
         // Max points
         export += "\t\t\t\t";
         for (String assn : assignmentOrder) {
             export += "\t" + getAssignment(assn).getTotalPointsPossible();
         }
         export += "\n";
-        
+
         // Weights
         export += "\t\t\t\t";
         for (String assn : assignmentOrder) {
@@ -504,18 +526,18 @@ public class MyGradeBook {
             Student st = getStudent(s);
             export +=
                     s + "\t" + st.getFirstName() + "\t" + st.getLastName()
-                            + "\t" + st.getAdvisor() + "\t"
-                            + st.getGraduationYear();
-            
+                    + "\t" + st.getAdvisor() + "\t"
+                    + st.getGraduationYear();
+
             for (String assn : assignmentOrder) {
                 export += "\t" + assignmentGrade(assn, s);
             }
             export += "\n";
         }
-        
+
         return export;
     }
-    
+
     public List<String> getAssignmentOrder() {
         return this.assignmentOrder;
     }
