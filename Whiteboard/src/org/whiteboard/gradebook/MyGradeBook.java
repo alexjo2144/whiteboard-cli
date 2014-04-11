@@ -457,33 +457,42 @@ public class MyGradeBook {
      *         assignment info, dividers, each student (username followed by
      *         tab and assignment grade), and assignment stats. The
      *         usernames will be listed alphabetically while assignments are
-     *         to remain in the same order as given. */
-    public String outputAssignmentGrades(String assignName) {
-        String export = "ASSIGNMENT_GRADES\n";
-        Assignment a = getAssignment(assignName);
+     *         to remain in the same order as given. 
+     * @throws NoSuchElementException if given assignmentName does not exist
+     */
+    public String outputAssignmentGrades(String assignName) throws NoSuchElementException {
+        if(assignments.containsKey(assignName)) {
+            String export = "ASSIGNMENT_GRADES\n";
+            Assignment a = getAssignment(assignName);
 
-        export += assignName + "\n";
-        export += a.getTotalPointsPossible() + "\n";
-        export += a.getWeight() + "\n";
+            export += assignName + "\n";
+            export += a.getTotalPointsPossible() + "\n";
+            export += a.getWeight() + "\n";
 
-        export += "----\n";
-        // Get and sort students by alphabetical, case insensitive order.
-        List<String> sts =
-                Arrays.asList((String[]) students.keySet().toArray());
-        Collections.sort(sts, String.CASE_INSENSITIVE_ORDER);
-        for (String student : sts) {
-            export += student + "\t" + a.getGrade(student) + "\n";
+            export += "----\n";
+            // Get and sort students by alphabetical, case insensitive order.
+            List<String> sts = new ArrayList<String>();
+            for(String str : students.keySet()) {
+                sts.add(str);
+            }
+            Collections.sort(sts, String.CASE_INSENSITIVE_ORDER);
+            for (String student : sts) {
+                export += student + "\t" + a.getGrade(student) + "\n";
+            }
+
+            export += "----\n";
+
+            export += "STATS\n";
+            export += "Average\t" + average(assignName) + "\n";
+            export += "Median\t" + median(assignName) + "\n";
+            export += "Max\t" + max(assignName) + "\n";
+            export += "Min\t" + min(assignName) + "\n";
+
+            return export;
         }
-
-        export += "----\n";
-
-        export += "STATS\n";
-        export += "Average\t" + average(assignName) + "\n";
-        export += "Median\t" + median(assignName) + "\n";
-        export += "Max\t" + max(assignName) + "\n";
-        export += "Min\t" + min(assignName) + "\n";
-
-        return export;
+        else {
+            throw new NoSuchElementException("Assignment does not exist");
+        }
     }
 
     /** Provide a String that contains the current grade book. This String
