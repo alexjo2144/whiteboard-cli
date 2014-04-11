@@ -18,7 +18,7 @@ import java.util.Scanner;
  * well as methods for modifying fields directly contained within it.
  * 
  * @author Daniel Wolf <wolf@ccs.neu.edu>
- * @version Mar 30, 2014 */
+ * @version April 11, 2014 */
 public class MyGradeBook {
     private String name;
     private String description;
@@ -97,24 +97,18 @@ public class MyGradeBook {
      *            book, which is formatted like initial.txt
      * @return a MyGradebook that contains the grade book from filename
      * @throws FileNotFoundException */
-    public static MyGradeBook initializeWithFile(String filename) {
+    public static MyGradeBook initializeWithFile(String filename)
+            throws FileNotFoundException {
+        File f = new File(filename);
+        Scanner s;
+        s = new Scanner(f);
         
-        try {
-            File f = new File(filename);
-            Scanner s;
-            s = new Scanner(f);
-            
-            String fileString = "";
-            while (s.hasNextLine()) {
-                fileString += s.nextLine() + "\n";
-            }
-            
-            return initializeWithString(fileString);
-        }
-        catch (FileNotFoundException e) {
-            throw new RuntimeException(e.getLocalizedMessage());
+        String fileString = "";
+        while (s.hasNextLine()) {
+            fileString += s.nextLine() + "\n";
         }
         
+        return initializeWithString(fileString);
     }
     
     /** Factory method to construct a MyGradebook that contains the grade
@@ -457,7 +451,8 @@ public class MyGradeBook {
         
         export += "----\n";
         // Get and sort students by alphabetical, case insensitive order.
-        List<String> sts = Arrays.asList((String[])students.keySet().toArray());
+        List<String> sts =
+                Arrays.asList((String[]) students.keySet().toArray());
         Collections.sort(sts, String.CASE_INSENSITIVE_ORDER);
         for (String student : sts) {
             export += student + "\t" + a.getGrade(student) + "\n";
@@ -486,30 +481,34 @@ public class MyGradeBook {
         // Assignments
         export += "\t\t\t\t";
         for (String assn : assignmentOrder) {
-             export += "\t" + assn;
+            export += "\t" + assn;
         }
         export += "\n";
         
         // Max points
         export += "\t\t\t\t";
         for (String assn : assignmentOrder) {
-             export += "\t" + getAssignment(assn).getTotalPointsPossible();
+            export += "\t" + getAssignment(assn).getTotalPointsPossible();
         }
         export += "\n";
         
         // Weights
         export += "\t\t\t\t";
         for (String assn : assignmentOrder) {
-             export += "\t" + getAssignment(assn).getWeight();
+            export += "\t" + getAssignment(assn).getWeight();
         }
         export += "\n";
         // Students and grades
         // Get and sort students by alphabetical, case insensitive order.
-        List<String> sts = Arrays.asList((String[])students.keySet().toArray());
+        List<String> sts =
+                Arrays.asList((String[]) students.keySet().toArray());
         Collections.sort(sts, String.CASE_INSENSITIVE_ORDER);
         for (String s : sts) {
             Student st = getStudent(s);
-            export += s + "\t" + st.getFirstName() + "\t" + st.getMiddleName() + "\t" + st.getLastName() + "\t" + st.getGraduationYear();
+            export +=
+                    s + "\t" + st.getFirstName() + "\t" + st.getMiddleName()
+                            + "\t" + st.getLastName() + "\t"
+                            + st.getGraduationYear();
             
             for (String assn : assignmentOrder) {
                 export += "\t" + assignmentGrade(assn, s);
@@ -519,27 +518,27 @@ public class MyGradeBook {
         
         return export;
     }
-
+    
     public Integer getSectionID() {
         return sectionID;
     }
-
+    
     public void setSectionID(Integer sectionID) {
         this.sectionID = sectionID;
     }
-
+    
     public String getName() {
         return name;
     }
-
+    
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public String getDescription() {
         return description;
     }
-
+    
     public void setDescription(String description) {
         this.description = description;
     }
