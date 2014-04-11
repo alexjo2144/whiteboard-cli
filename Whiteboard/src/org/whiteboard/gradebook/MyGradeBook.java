@@ -492,8 +492,10 @@ public class MyGradeBook {
         export += "\n";
         // Students and grades
         // Get and sort students by alphabetical, case insensitive order.
-        List<String> sts =
-                Arrays.asList((String[]) students.keySet().toArray());
+        List<String> sts = new ArrayList<String>();
+        for(String str : students.keySet()) {
+            sts.add(str);
+        }
         Collections.sort(sts, String.CASE_INSENSITIVE_ORDER);
         for (String s : sts) {
             Student st = getStudent(s);
