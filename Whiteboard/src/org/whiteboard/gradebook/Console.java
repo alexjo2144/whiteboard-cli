@@ -3,6 +3,7 @@ package org.whiteboard.gradebook;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.io.File;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -80,8 +81,7 @@ public class Console {
      */
     private void runOptions() {
         String[] prompts = { "(1) Add students", "(2) Add assignments",
-                "(3) Add a grade for an assignment",
-                "(4) Change student grades",
+                "(3) Add a grade", "(4) Change student grades",
                 "(5) Calculate statistics for an assignment",
                 "(6) Get information for a student",
                 "(7) Output entire gradebook to a file",
@@ -186,26 +186,47 @@ public class Console {
         return in;
     }
 
+    private double getInputDouble() {
+        boolean flag = true;
+        double in = 0.0;
+        do {
+            try {
+                String input = getInput();
+                in = Double.parseDouble(input);
+                flag = false;
+            }
+            catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please try again.");
+                flag = true;
+            }
+        }
+        while (flag);
+        return in;
+    }
+
     /**
-     * Tell the gradebook to add a grade, assignment, or student
-     * 
-     * @param classification
-     *            either "Grade", "Assignment", or "Student"
+     * Prompts the user to input student information and processes it
      */
-    private void add(String classification) {
-        System.out.println("Would you like to: \n" + "(1) input "
-                + classification + " information manually\n" + "(2) Import "
-                + classification + " information from a file");
+    private void addStudents() {
+        System.out.println("Would you like to: \n"
+                + "(1) input Student information manually\n"
+                + "(2) Import Student information from a file");
         int in = getInputInt(1, 2);
         if (in == 1) {
-            System.out.println("Please enter the " + classification
-                    + " information: ");
-            String input = "";
-            while(s.hasNextLine()) {
-                input += s.nextLine() + "\t";
-            }
+            //TODO
+            String newStudent = "STUDENT\n";
+            System.out.println("Enter the desired Username:");
+            newStudent += getInput() + "\n";
+            System.out.println("Enter the first name:");
+            newStudent += getInput() + "\n";
+            System.out.println("Enter the last name:");
+            newStudent += getInput() + "\n";
+            System.out.println("Enter the advsior's name:");
+            newStudent += getInput() + "\n";
+            System.out.println("Enter the graduation year:");
+            newStudent += getInput() + "\n";
             try {
-                gb.processString(input);
+                gb.processString(newStudent);
             }
             catch (RuntimeException e) {
                 System.out.println("Information is not formatted correctly.");
@@ -224,24 +245,93 @@ public class Console {
     }
 
     /**
-     * Prompts the user to input student information and processes it
-     */
-    private void addStudents() {
-        add("Student");
-    }
-
-    /**
      * Prompts the user to input assignment information and processes it
      */
     private void addAssignments() {
-        add("Assignment");
+        System.out.println("Would you like to: \n"
+                + "(1) input Assignment information manually\n"
+                + "(2) Import Assigment information from a file");
+        int in = getInputInt(1, 2);
+        if (in == 1) {
+            //TODO
+            String newAssignment = "ASSIGNMENT_GRADES\n";
+            System.out.println("Enter the name of the assignment:");
+            newAssignment += getInput() + "\n";
+            System.out.println("Enter the total points:");
+            newAssignment += getInput() + "\n";
+            System.out.println("Enter the percent of the total grade:");
+            newAssignment += getInput() + "\n";
+
+            newAssignment += "----";
+            System.out
+                    .println("Enter each student's username, followed by a tab,"
+                            + " followed by their grade.");
+            System.out.println("Then enter 'done': ");
+            boolean finished = false;
+            while (!finished) {
+                String next = s.nextLine();
+                if (next.equals("done")) {
+                    finished = true;
+                }
+                else {
+                    newAssignment += next + "\n";
+                }
+            }
+
+            newAssignment += "----\nSTATS\n";
+            System.out.println("Enter the Average:");
+            newAssignment += "Average\t" + getInputDouble() + "\n";
+            System.out.println("Enter the Median:");
+            newAssignment += "Median\t" + getInputDouble() + "\n";
+            System.out.println("Enter the Max:");
+            newAssignment += "Max\t" + getInputDouble() + "\n";
+            System.out.println("Enter the Min:");
+            newAssignment += "Min\t" + getInputDouble() + "\n";
+            try {
+                System.out.println(newAssignment);
+                gb.processString(newAssignment);
+            }
+            catch (RuntimeException e) {
+                System.out.println("Information is not formatted correctly.");
+                System.out.println(e.getLocalizedMessage());
+            }
+        }
+        else {
+            System.out.println("Please enter the file name:");
+            String inString = getInput();
+            try {
+                gb.processFile(inString);
+            }
+            catch (RuntimeException e) {
+                System.out.println("Not a valid file name. Please try again.");
+            }
+        }
     }
 
     /**
      * Prompts the user to input grade information and processes it
      */
     private void addGrade() {
-        add("Grade");
+        System.out.println("Would you like to:\n(1) initialize from a file\n"
+                + "(2) Enter grades manually for an assignment\n"
+                + "(3) Enter grades manually for a student");
+        int choice = getInputInt(1, 3);
+        if (choice == 1) {
+            //TODO
+            System.out.println("Please enter the file name:");
+            try {
+                gb.processFile(getInput());
+            }
+            catch(RuntimeException e) {
+                System.out.println("Not a valid file name. Please try again.");
+            }
+        }
+        else if (choice == 2) {
+            //TODO
+        }
+        else {
+            //TODO
+        }
     }
 
     /**
@@ -262,6 +352,8 @@ public class Console {
                 newGrade = Double.parseDouble(getInput());
                 gb.changeGrade(ass, stud, newGrade);
                 flag = false;
+                //TODO
+                //Enter wrong username but valid AssName/double -> passes
             }
             catch (NumberFormatException e) {
                 System.out.println("The grade was not a valid decimal");
@@ -294,7 +386,7 @@ public class Console {
                 flag = false;
             }
             catch (NoSuchElementException e) {
-                System.out.println("Not a valid file name.");
+                System.out.println("Not a valid assignment name. Please try again.");
                 flag = true;
             }
         }
@@ -303,13 +395,20 @@ public class Console {
 
     private void getStudentInfo() {
         System.out.println("Please enter the student's username: ");
-        String name = getInput();
-        try {
-            System.out.println(gb.outputStudentGrades(name));
+        boolean flag = false;
+        String name;
+        do {
+            name = getInput();
+            try {
+                System.out.println(gb.outputStudentGrades(name));
+                flag = false;
+            }
+            catch (NoSuchElementException e) {
+                System.out.println("Not a valid name. Please try again.");
+                flag = true;
+            }
         }
-        catch (NoSuchElementException e) {
-            System.out.println("Not a valid name");
-        }
+        while (flag);
     }
 
     private void writeToFile(String content, String fileName) {
@@ -334,14 +433,27 @@ public class Console {
     }
 
     private void outputStudent() {
-        System.out.println("What is the student's name?");
-        String name = getInput() + ".txt";
-        System.out.println("What would you like the student's "
-                + "file to be called? (no .txt suffix)");
-        String fileName = getInput() + ".txt";
-        String str;
-        str = gb.outputStudentGrades(name);
-        writeToFile(str, fileName);
+        boolean flag = false;
+        do {
+            System.out.println("What is the student's name?");
+            String name = getInput();
+            System.out.println("What would you like the student's "
+                    + "file to be called? (no .txt suffix)");
+            String fileName = getInput() + ".txt";
+            String str;
+            try {
+                str = gb.outputStudentGrades(name);
+                writeToFile(str, fileName);
+                flag = false;
+            }
+            catch (NoSuchElementException e) {
+                System.out.println("Not a valid student name. "
+                        + "Please try again.");
+                flag = true;
+
+            }
+        }
+        while (flag);
     }
 
     private void outputGradeBook() {
@@ -353,12 +465,26 @@ public class Console {
     }
 
     private void outputAss() {
-        System.out
-                .println("What would you like the assignment file to be called? (no .txt suffix)");
-        String name = getInput() + ".txt";
-        String str = gb.outputAssignmentGrades(name);
-        writeToFile(str, name);
+        boolean flag = false;
+        do {
+            System.out.println("Which assignment are you outputting?");
+            String ass = getInput();
+            System.out.println("What would you like the assignment "
+                    + "file to be called? (no .txt suffix)");
+            String name = getInput() + ".txt";
+            try {
+                String str = gb.outputAssignmentGrades(ass);
+                writeToFile(str, name);
+                flag = false;
+            }
+            catch (NoSuchElementException e) {
+                System.out.println("No such file found.");
+                flag = true;
+            }
+        }
+        while (flag);
     }
+
     private void printGradeBook() {
         String str = gb.outputGradebook();
         System.out.println(str);
