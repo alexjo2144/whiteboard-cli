@@ -93,6 +93,58 @@ public class MyGradeBookTest {
         }
     }
     
+    /**
+     * Tests the changeGrade method
+     */
+    @Test
+    public void testChangeGrade() {
+        try {
+            assertTrue(this.kGB1.changeGrade("A2", "abetaylor", 100));
+            assertFalse(this.kGB0.changeGrade("HW1", "Bobby", 10));
+        }
+        catch (NoSuchElementException e) {
+            assertTrue(true);
+        }
+    }
     
+    /**
+     * Tests the average method
+     */
+    @Test
+    public void testAverage() {
+        assertEquals(this.kGB1.average("A2"), 81.82352941176471, .01);
+    }
+    
+    /**
+     * Tests for the median method
+     */
+    @Test
+    public void testMedian() {
+        assertEquals(this.kGB1.median("A2"), 83.0, 0);
+    }
+    
+    /**
+     * Tests for the min method
+     */
+    @Test
+    public void testMin() {
+        assertEquals(this.kGB1.min("A2"), 50.0, 0);
+    }
+    
+    /**
+     * Tests for the max method
+     */
+    @Test
+    public void testMax() {
+        assertEquals(this.kGB1.max("A2"), 100.0, 0);
+    }
+    
+    /**
+     * Tests for the currentGrade method
+     */
+    @Test
+    public void testCurrentGrade() {
+        
+    }
 
 }
