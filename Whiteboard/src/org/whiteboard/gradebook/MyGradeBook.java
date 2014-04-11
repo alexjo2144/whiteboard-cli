@@ -47,29 +47,27 @@ public class MyGradeBook {
      * @return the resulting assignment, or throws a NoSuchElementException
      *         if the assignment does not exist. */
     protected Assignment getAssignment(String name) {
-        for (Assignment a : assignments) {
-            if (a.getName().toLowerCase().equals(name.toLowerCase())) {
-                return a;
-            }
-        }
-        throw new NoSuchElementException(
-                "No assignment defined for that name");
+        return assignments.get(name);
     }
     
-    protected boolean addStudent(Student student) {
-        return students.add(student);
+    protected boolean addStudent(String name, Student student) {
+        students.put(name, student);
+        return true;
     }
     
     protected boolean dropStudent(Student student) {
-        return students.remove(student);
+        students.remove(student);
+        return true;
     }
     
-    protected boolean addAssignment(Assignment assignment) {
-        return assignments.add(assignment);
+    protected boolean addAssignment(String name, Assignment assignment) {
+        assignments.put(name, assignment);
+        return true;
     }
     
     protected boolean dropAssignment(Assignment assignment) {
-        return assignments.remove(assignment);
+        assignments.remove(assignment);
+        return true;
     }
     
     protected Student getStudent(String id) {
@@ -132,15 +130,38 @@ public class MyGradeBook {
      * @return a MyGradebook that contains the grade book from
      *         startingString */
     public static MyGradeBook initializeWithString(String startingString) {
-        
-    }
-    
-    /** Parses header and returns the rest of the string minus the header.
-     * 
-     * @param string
-     * @return */
-    private String parseHeader(String string) {
-        
+        MyGradeBook gb = MyGradeBook.initialize();
+        String[] lines = startingString.split("\n");
+        try {
+            if (lines.length >= 4 && lines[0].equals("GRADEBOOK")) {
+                String[] assignments = lines[1].split("\t");
+                String[] pointsOutOf = lines[2].split("\t");
+                String[] pointsGrade = lines[3].split("\t");
+                
+                for (int ai = 0; ai < assignments.length; ai++) {
+                    gb.assignments.put(assignments[ai], new Assignment(
+                            assignments[ai], "", "", new Double(
+                                    pointsOutOf[ai]), new Double(
+                                    pointsGrade[ai])));
+                }
+            }
+            else {
+                throw new RuntimeException("File is not a valid Gradebook");
+            }
+            for (int l = 4; l < lines.length; l++) {
+                String[] student = lines[l].split("\t");
+                gb.addStudent(student[0], new Student(student[1], student[2],
+                        student[3], student[0], student[0]));
+                
+                for (int grade = 5; grade < student.length; grade++) {
+                    getAssignment()
+                }
+            }
+            
+        }
+        catch (IndexOutOfBoundsException e) {
+            throw new RuntimeException("File is not a valid Gradebook");
+        }
     }
     
     /** Add to the state of this grade book---new assignments, new students,
@@ -265,7 +286,8 @@ public class MyGradeBook {
     public HashMap<String, Double> currentGrades() {
         HashMap<String, Double> currentGrades = new HashMap<String, Double>();
         for (String studentID : students.keySet()) {
-            currentGrades.put(studentID, students.get(studentID).calculateCourseGrade());
+            currentGrades.put(studentID, students.get(studentID)
+                    .calculateCourseGrade());
         }
         return currentGrades;
     }
