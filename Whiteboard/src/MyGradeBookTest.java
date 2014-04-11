@@ -89,6 +89,7 @@ public class MyGradeBookTest {
                             "initial.txt").outputGradebook()));
         }
         catch (FileNotFoundException e) {
+            // initializeWithFile doesn't throw anything yet
             assertTrue(false);
         }
     }
@@ -99,8 +100,8 @@ public class MyGradeBookTest {
     @Test
     public void testChangeGrade() {
         try {
-            assertTrue(this.kGB1.changeGrade("A2", "abetaylor", 100));
-            assertFalse(this.kGB0.changeGrade("HW1", "Bobby", 10));
+            assertTrue(this.kGB1.changeGrade("A2", "abetaylor", 100.0));
+            assertFalse(this.kGB0.changeGrade("HW1", "Bobby", 10.0));
         }
         catch (NoSuchElementException e) {
             assertTrue(true);
@@ -144,7 +145,64 @@ public class MyGradeBookTest {
      */
     @Test
     public void testCurrentGrade() {
-        
+        assertEquals(this.kGB1.currentGrade("abetaylor"), 72.5, 0);
+    }
+    
+    /**
+     * Tests for the currentGrades method
+     */
+    @Test
+    public void testCurrentGrades() {
+        assertTrue(this.kGB1.currentGrades().size() == 17);
+    }
+    
+    /**
+     * Tests for the assignmentGrade method
+     */
+    @Test
+    public void testAssignmentGrade() {
+        assertEquals(this.kGB1.assignmentGrade("A2", "abetaylor"), 71.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("A2", "abethes"), 90.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("A2", "acit"), 79.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("A2", "ahrown"), 85.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("A2", "amller"), 74.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("A2", "are"), 58.0, 0);
+    }
+    
+    /**
+     * Tests for the outputCurrentGrades method
+     */
+    @Test
+    public void testOutputCurrentGrades() {
+        assertFalse(this.kGB1.outputCurrentGrades().equals(
+                this.kGB0.outputCurrentGrades()));
+    }
+    
+    /**
+     * Tests for the outputCurrentGrades method
+     */
+    @Test
+    public void testOutputAssignmentGrades() {
+        assertFalse(this.kGB1.outputAssignmentGrades("A2").equals(
+                this.kGB0.outputCurrentGrades()));
+    }
+    
+    /**
+     * Tests for the outputCurrentGrades method
+     */
+    @Test
+    public void testOutputGradebook() {
+        assertFalse(this.kGB1.outputGradebook().equals(
+                this.kGB0.outputCurrentGrades()));
+    }
+    
+    /**
+     * Tests for the outputCurrentGrades method
+     */
+    @Test
+    public void testOutputStudentGrades() {
+        assertFalse(this.kGB1.outputStudentGrades("abetaylor").equals(
+                this.kGB0.outputCurrentGrades()));
     }
 
 }
