@@ -29,8 +29,8 @@ public class UserTest {
      */
     @Before
     public void initialize() {
-        s0 = new Student("George", "F", "Weasley", "1", "password");
-        s1 = new Student("Fred", "G", "Weasley", "2", "password");
+        s0 = new Student("George", "F", "Weasley", "1", "2015", "password");
+        s1 = new Student("Fred", "G", "Weasley", "2", "2018", "password");
         t0 = new Teacher("George", "F", "Weasley", "1", "password");
         t1 = new Teacher("Fred", "G", "Weasley", "2", "password");
     }
@@ -55,8 +55,10 @@ public class UserTest {
         s1.setFirstName("Ginny");
         t0.setFirstName("Ron");
         t1.setFirstName("Ginny");
-        assertEquals(s0, new Student("Ron", "F", "Weasley", "1", "password"));
-        assertEquals(s1, new Student("Ginny", "G", "Weasley", "2", "password"));
+        assertEquals(s0, 
+                new Student("Ron", "F", "Weasley", "1", "2015", "password"));
+        assertEquals(s1, 
+                new Student("Ginny", "G", "Weasley", "2", "2018", "password"));
         assertEquals(t0, new Teacher("Ron", "F", "Weasley", "1", "password"));
         assertEquals(t1, new Teacher("Ginny", "G", "Weasley", "2", "password"));
     }
@@ -81,8 +83,10 @@ public class UserTest {
         s1.setMiddleName("B");
         t0.setMiddleName("R");
         t1.setMiddleName("B");
-        assertEquals(s0, new Student("George", "R", "Weasley", "1", "password"));
-        assertEquals(s1, new Student("Fred", "B", "Weasley", "2", "password"));
+        assertEquals(s0, 
+                new Student("George", "R", "Weasley", "1", "2015", "password"));
+        assertEquals(s1, 
+                new Student("Fred", "B", "Weasley", "2", "2018", "password"));
         assertEquals(t0, new Teacher("George", "R", "Weasley", "1", "password"));
         assertEquals(t1, new Teacher("Fred", "B", "Weasley", "2", "password"));
     }
@@ -107,8 +111,10 @@ public class UserTest {
         s1.setLastName("Granger");
         t0.setLastName("Potter");
         t1.setLastName("Granger");
-        assertEquals(s0, new Student("George", "F", "Potter", "1", "password"));
-        assertEquals(s1, new Student("Fred", "G", "Granger", "2", "password"));
+        assertEquals(s0, 
+                new Student("George", "F", "Potter", "1", "2015", "password"));
+        assertEquals(s1, 
+                new Student("Fred", "G", "Granger", "2", "2018", "password"));
         assertEquals(t0, new Teacher("George", "F", "Potter", "1", "password"));
         assertEquals(t1, new Teacher("Fred", "G", "Granger", "2", "password"));
     }
@@ -133,8 +139,10 @@ public class UserTest {
         s1.setID("4");
         t0.setID("3");
         t1.setID("4");
-        assertEquals(s0, new Student("George", "F", "Weasley", "3", "password"));
-        assertEquals(s1, new Student("Fred", "G", "Weasley", "4", "password"));
+        assertEquals(s0, 
+                new Student("George", "F", "Weasley", "3", "2015", "password"));
+        assertEquals(s1, 
+                new Student("Fred", "G", "Weasley", "4", "2018", "password"));
         assertEquals(t0, new Teacher("George", "F", "Weasley", "3", "password"));
         assertEquals(t1, new Teacher("Fred", "G", "Weasley", "4", "password"));
     }
@@ -159,10 +167,14 @@ public class UserTest {
         s1.setPassword("password1");
         t0.setPassword("password2");
         t1.setPassword("password3");
-        assertEquals(s0, new Student("George", "F", "Weasley", "1", "password0"));
-        assertEquals(s1, new Student("Fred", "G", "Weasley", "2", "password1"));
-        assertEquals(t0, new Teacher("George", "F", "Weasley", "1", "password2"));
-        assertEquals(t1, new Teacher("Fred", "G", "Weasley", "2", "password3"));
+        assertEquals(s0, 
+                new Student("George","F","Weasley","1","2015","password0"));
+        assertEquals(s1, 
+                new Student("Fred","G","Weasley","2","2018","password1"));
+        assertEquals(t0, 
+                new Teacher("George", "F", "Weasley", "1", "password2"));
+        assertEquals(t1, 
+                new Teacher("Fred", "G", "Weasley", "2", "password3"));
     }
     
     /**
@@ -170,10 +182,14 @@ public class UserTest {
      */
     @Test
     public void testEquals() {
-        assertTrue(s0.equals(new Student("George", "F", "Weasley", "1", "password")));
-        assertTrue(s1.equals(new Student("Fred", "G", "Weasley", "2", "password")));
-        assertTrue(t0.equals(new Teacher("George", "F", "Weasley", "1", "password")));
-        assertTrue(t1.equals(new Teacher("Fred", "G", "Weasley", "2", "password")));
+        assertTrue(s0.equals(
+                new Student("George","F","Weasley","1","2015","password")));
+        assertTrue(s1.equals(
+                new Student("Fred","G","Weasley","2","2018","password")));
+        assertTrue(t0.equals(
+                new Teacher("George", "F", "Weasley", "1", "password")));
+        assertTrue(t1.equals(
+                new Teacher("Fred", "G", "Weasley", "2", "password")));
         assertFalse(s0.equals(t0));
         assertFalse(s0.equals(s1));
         assertFalse(s1.equals(t1));
@@ -184,14 +200,14 @@ public class UserTest {
      */
     @Test
     public void testHashCode() {
-        assertTrue(s0.hashCode() == 
-                new Student("George", "F", "Weasley", "1", "password").hashCode());
-        assertTrue(s1.hashCode() == 
-                new Student("Fred", "G", "Weasley", "2", "password").hashCode());
+        assertTrue(s0.hashCode() == new Student(
+                "George","F","Weasley","1","2015","password").hashCode());
+        assertTrue(s1.hashCode() == new Student(
+                "Fred", "G", "Weasley", "2", "2018", "password").hashCode());
         assertTrue(t0.hashCode() == 
-                new Teacher("George", "F", "Weasley", "1", "password").hashCode());
+                new Teacher("George","F","Weasley","1","password").hashCode());
         assertTrue(t1.hashCode() == 
-                new Teacher("Fred", "G", "Weasley", "2", "password").hashCode());
+                new Teacher("Fred","G","Weasley","2","password").hashCode());
     }
     
     /**

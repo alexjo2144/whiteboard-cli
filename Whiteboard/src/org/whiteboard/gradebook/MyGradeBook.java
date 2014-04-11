@@ -542,4 +542,8 @@ public class MyGradeBook {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    public List<String> getAssignmentOrder() {
+        return this.assignmentOrder;
+    }
 }

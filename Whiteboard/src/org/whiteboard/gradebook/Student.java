@@ -8,16 +8,13 @@ package org.whiteboard.gradebook;
  * @version Mar 30, 2014 */
 public class Student extends User {
     /** Graduation year of the student */
-    String graduationYear;
+    protected String graduationYear;
     
     /** Creates a new Student with given parameters
      * 
-     * @param n
-     *            the Student's name
-     * @param i
-     *            the Student's ID number
-     * @param pass
-     *            the Student's password */
+     * @param n the Student's name
+     * @param i the Student's ID number
+     * @param pass the Student's password */
     protected Student(String fn, String mn, String ln, String i, String grad,
             String pass) {
         this.firstName = fn;
