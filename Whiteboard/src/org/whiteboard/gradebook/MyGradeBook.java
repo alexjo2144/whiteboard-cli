@@ -329,22 +329,21 @@ public class MyGradeBook {
      *         semester. */
     public double currentGrade(String username) {
         Double sumRelativeAssignmentGrades = new Double(0);
-        Double sumTotal = new Double(0);
+        Double sumWeights = new Double(0);
 
         for (Assignment a : assignments.values()) {
             try {
-                sumRelativeAssignmentGrades +=
-                        (a.getGrade(username) * a.getTotalPointsPossible())
-                        * a.getWeight();
-                sumTotal += a.getTotalPointsPossible() * a.getWeight();
-
+                sumRelativeAssignmentGrades += ((a.getGrade(username) / a.getTotalPointsPossible()) * a.getWeight());
+                sumWeights += a.getWeight();
             }
             catch (NoSuchElementException e) {
                 // Do nothing, the student just missed this assignment and
                 // will be deducted full credit
             }
         }
-        return 100d * (sumRelativeAssignmentGrades / sumTotal);
+        Double ret = 100 * sumRelativeAssignmentGrades / sumWeights;
+        ret = Math.round(ret * 100) / 100.0;
+        return ret;
     }
 
     /** Calculates the current grade for all students
