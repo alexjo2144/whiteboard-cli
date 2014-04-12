@@ -55,16 +55,12 @@ public class MyGradeBookTest {
         try {
             this.kGB0 = MyGradeBook.initialize();
             this.kGB1 = MyGradeBook.initializeWithFile("initial.txt");
+            this.kGB2 = MyGradeBook.initialize();
         }
         catch (FileNotFoundException e) {
             // The file was not found
             assertTrue(false);
         }
-        
-        // Assignments
-        
-        
-        // Grades
     }
     
     /**
@@ -94,6 +90,31 @@ public class MyGradeBookTest {
         }
     }
     
+    /**
+     * Tests the processing strings method
+     */
+    @Test
+    public void testProcessString() {
+        
+        // addAssignments.txt
+        this.kGB1.processFile("addAssignments.txt");
+        this.kGB1.changeGrade("Test", "abetaylor", 100.0);
+        assertEquals(this.kGB1.average("Test"), 5.88, 0.1);
+        
+        // addStudents.txt
+        this.kGB1.processFile("addStudents.txt");
+        assertEquals(this.kGB1.currentGrade("iaartinez"), 0.0, 0);
+        this.kGB1.changeGrade("Test", "iaartinez", 100.0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "iaartinez"), 100.0, 0);
+        
+        // assignmentGrade.txt
+        this.kGB1.processFile("assignmentGrade.txt");
+        assertEquals(this.kGB1.average("Test"), 73.6, 0);
+        assertEquals(this.kGB1.median("Test"), 76.0, 0);
+        assertEquals(this.kGB1.min("Test"), 50.0, 0);
+        assertEquals(this.kGB1.max("Test"), 97.0, 0);
+    }
+
     /**
      * Tests the changeGrade method
      */
