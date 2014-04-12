@@ -55,22 +55,40 @@ public class MyGradeBook {
         }
     }
     
+    /** Adds a student to MyGradeBook
+     * @param name the username of the student
+     * @param student the Student object to add
+     * @return success
+     */
     protected boolean addStudent(String name, Student student) {
         students.put(name, student);
         return true;
     }
     
+    /** Drops a student from the course.
+     * @param student the student object to drop
+     * @return success
+     */
     protected boolean dropStudent(Student student) {
         students.remove(student);
         return true;
     }
     
+    /** Add an assignment to the grade book.
+     * @param name the assignment's name
+     * @param assignment the assignment object to add
+     * @return 
+     */
     protected boolean addAssignment(String name, Assignment assignment) {
         assignments.put(name, assignment);
         assignmentOrder.add(name);
         return true;
     }
     
+    /**
+     * @param name
+     * @return
+     */
     protected boolean dropAssignment(String name) {
         assignments.remove(name);
         assignmentOrder.remove(name);
