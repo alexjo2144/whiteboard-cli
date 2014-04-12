@@ -48,11 +48,11 @@ public class Console {
      */
     private void runMain() {
         String[] prompts = {
-                "Welcome to the gradebook!",
-                "Enter 'quit' at any time without the quotes to close the program.",
-                "Please enter a file name to import a gradebook from,",
-                "Or type 'empty' to create a new one from scratch",
-                "Please make a choice and hit enter: " };
+            "Welcome to the gradebook!",
+            "Enter 'quit' at any time without the quotes to close the program.",
+            "Please enter a file name to import a gradebook from,",
+            "Or type 'empty' to create a new one from scratch",
+            "Please make a choice and hit enter: " };
         for (String s : prompts) {
             System.out.println(s);
         }
@@ -82,15 +82,15 @@ public class Console {
      */
     private void runOptions() {
         String[] prompts = { "(1) Add students", "(2) Add assignments",
-                "(3) Add a grade", "(4) Change student grades",
-                "(5) Calculate statistics for an assignment",
-                "(6) Get information for a student",
-                "(7) Output entire gradebook to a file",
-                "(8) Output Assignment information to a file",
-                "(9) Output Student information to a file",
-                "(10) Output Grade Information to a file",
-                "(11) Print entire gradebook to console",
-                "Please make a choice and hit enter: " };
+            "(3) Add a grade", "(4) Change student grades",
+            "(5) Calculate statistics for an assignment",
+            "(6) Get information for a student",
+            "(7) Output entire gradebook to a file",
+            "(8) Output Assignment information to a file",
+            "(9) Output Student information to a file",
+            "(10) Output Grade Information to a file",
+            "(11) Print entire gradebook to console",
+            "Please make a choice and hit enter: " };
 
         System.out.println("What would you like to do?");
         for (String s : prompts) {
@@ -296,9 +296,6 @@ public class Console {
                 + "(3) Enter grades manually for an assignment");
         int choice = getInputInt(1, 3);
         if (choice == 1) {
-            // TODO
-            // works fine if all people/assignments are there, otherwise will
-            // throw RTE
             System.out.println("Please enter the file name:");
             try {
                 gb.processFile(getInput());
@@ -328,7 +325,6 @@ public class Console {
                         assName = assName + "\n";
                         String in = inputString + assName + assScore;
                         System.out.println(in);
-                        // TODO
                         gb.processString(in);
                     }
                     catch (RuntimeException e) {
@@ -355,12 +351,10 @@ public class Console {
                         studName = studName + "\n";
                         String in = inputString + studName + assScore;
                         System.out.println(in);
-                        // TODO
                         gb.processString(in);
                     }
                     catch (RuntimeException e) {
                         System.out.println("Invalid input. Try again.");
-                        // ensure you have existing assignments and students...
                     }
                 }
             }
@@ -384,8 +378,6 @@ public class Console {
                 newGrade = Double.parseDouble(getInput());
                 gb.changeGrade(ass, stud, newGrade);
                 flag = false;
-                // TODO
-                // Enter wrong username but valid AssName/double -> passes
             }
             catch (NumberFormatException e) {
                 System.out.println("The grade was not a valid decimal");
