@@ -105,14 +105,92 @@ public class MyGradeBookTest {
         this.kGB1.processFile("addStudents.txt");
         assertEquals(this.kGB1.currentGrade("iaartinez"), 0.0, 0);
         this.kGB1.changeGrade("Test", "iaartinez", 100.0);
-        assertEquals(this.kGB1.assignmentGrade("Test", "iaartinez"), 100.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "iaartinez"),
+                100.0, 0);
         
-        // assignmentGrade.txt
-        this.kGB1.processFile("assignmentGrade.txt");
-        assertEquals(this.kGB1.average("Test"), 73.6, 0);
-        assertEquals(this.kGB1.median("Test"), 76.0, 0);
-        assertEquals(this.kGB1.min("Test"), 50.0, 0);
-        assertEquals(this.kGB1.max("Test"), 97.0, 0);
+        // assignmentGrade1.txt
+        this.kGB1.processFile("gradesForAssignment1.txt");
+        assertEquals(this.kGB1.assignmentGrade("Opening Assignment",
+                "illines"), 9.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Opening Assignment",
+                "xaod"), 6.0, 0);
+        
+        // assignmentGrade2.txt
+        this.kGB1.processFile("gradesForAssignment2.txt");
+        assertEquals(this.kGB1.assignmentGrade("A2", "illines"), 52.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("A2", "xaod"), 98.0, 0);
+        
+        // assignmentGrade3.txt
+        this.kGB1.processFile("gradesForAssignment3.txt");
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "abetaylor"), 82.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "abethes"), 92.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "acit"), 122.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "ahrown"), 146.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project", 
+                "amller"), 100.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "are"), 99.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "enwilson"), 123.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "gailarti"), 132.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "iaartinez"), 79.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "illines"), 128.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "marson"), 136.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "michaeia"), 121.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "mijacks"), 93.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "oliviaas"), 78.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "onon"), 136.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "onson"), 133.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "thms"), 111.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "vaern"), 137.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "xaod"), 93.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("First Group Project",
+                "ydenavi"), 134.0, 0);
+
+        // assignmentGrade4.txt
+        this.kGB1.processFile("gradesForAssignment4.txt");
+        assertEquals(this.kGB1.assignmentGrade("Test", "abetaylor"), 65.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "abethes"), 88.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "acit"), 85.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "ahrown"), 57.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "amller"), 82.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "are"), 68.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "enwilson"), 97.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "gailarti"), 73.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "iaartinez"), 50.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "illines"), 79.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "marson"), 54.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "michaeia"), 58.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "mijacks"), 83.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "oliviaas"), 61.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "onon"), 51.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "onson"), 71.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "thms"), 92.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "vaern"), 83.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "xaod"), 91.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("Test", "ydenavi"), 84.0, 0);
+        
+        // gradesForStudent.txt
+        this.kGB1.processFile("gradesForStudent.txt");
+        assertEquals(this.kGB1.assignmentGrade("Opening Assignment",
+                "iaartinez"), 6.0, 0);
+        assertEquals(this.kGB1.assignmentGrade("A2", "iaartinez"), 51.0, 0);
     }
 
     /**
