@@ -1,4 +1,4 @@
-package org.whiteboard.gradebook;
+package gradebook;
 
 /** A User of the MyGradebook, either a Student or a Teacher.
  * 
@@ -34,7 +34,7 @@ public abstract class User {
     protected String getFirstName() {
         return firstName;
     }
-
+    
     /** Gets this User's last name
      * 
      * @return a String, this User's last name */
@@ -115,8 +115,8 @@ public abstract class User {
             ret += "Student ";
         }
         ret +=
-                "whose name is " + this.firstName + " " + this.lastName +
-                " and ID number is " + this.id;
+                "whose name is " + this.firstName + " " + this.lastName
+                        + " and ID number is " + this.id;
         return ret;
     }
     

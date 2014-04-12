@@ -1,9 +1,10 @@
 /**
  * 
  */
-package org.whiteboard.gradebook;
+package gradebook;
 
 /** Class representing a Student
+ * 
  * @author Daniel Wolf <wolf@ccs.neu.edu>
  * @version Mar 30, 2014 */
 public class Student extends User {
@@ -12,14 +13,16 @@ public class Student extends User {
     /** The User's advisor's name, as a String */
     protected String advisor;
     
-    
     /** Creates a new Student with given parameters
      * 
-     * @param n the Student's name
-     * @param i the Student's ID number
-     * @param pass the Student's password */
-    protected Student(String fn, String ln, String adv, String i, String grad,
-            String pass) {
+     * @param n
+     *            the Student's name
+     * @param i
+     *            the Student's ID number
+     * @param pass
+     *            the Student's password */
+    protected Student(String fn, String ln, String adv, String i,
+            String grad, String pass) {
         this.firstName = fn;
         this.advisor = adv;
         this.lastName = ln;
