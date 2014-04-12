@@ -68,8 +68,8 @@ public class UserTest {
      */
     @Test
     public void testGetAdvisor() {
-        assertEquals(s0.getAdvisor(), "F");
-        assertEquals(s1.getAdvisor(), "G");
+        assertEquals(s0.getAdvisor(), "Weasley");
+        assertEquals(s1.getAdvisor(), "Weasley");
     }
     
     /**
@@ -77,12 +77,12 @@ public class UserTest {
      */
     @Test
     public void testSetAdvisor() {
-        s0.setAdvisor("R");
-        s1.setAdvisor("B");
+        s0.setAdvisor("Bob");
+        s1.setAdvisor("Bill");
         assertEquals(s0, 
-                new Student("George", "R", "Weasley", "1", "2015", "password"));
+                new Student("George", "F", "Bob", "1", "2015", "password"));
         assertEquals(s1, 
-                new Student("Fred", "B", "Weasley", "2", "2018", "password"));
+                new Student("Fred", "G", "Bill", "2", "2018", "password"));
     }
     
     /**
@@ -90,8 +90,8 @@ public class UserTest {
      */
     @Test
     public void testGetLastName() {
-        assertEquals(s0.getLastName(), "Weasley");
-        assertEquals(s1.getLastName(), "Weasley");
+        assertEquals(s0.getLastName(), "F");
+        assertEquals(s1.getLastName(), "G");
         assertEquals(t0.getLastName(), "Weasley");
         assertEquals(t1.getLastName(), "Weasley");
     }
@@ -106,9 +106,9 @@ public class UserTest {
         t0.setLastName("Potter");
         t1.setLastName("Granger");
         assertEquals(s0, 
-                new Student("George", "F", "Potter", "1", "2015", "password"));
+                new Student("George", "Potter", "Weasley", "1", "2015", "password"));
         assertEquals(s1, 
-                new Student("Fred", "G", "Granger", "2", "2018", "password"));
+                new Student("Fred", "Granger", "Weasley", "2", "2018", "password"));
         assertEquals(t0, new Teacher("George", "Potter", "1", "password"));
         assertEquals(t1, new Teacher("Fred", "Granger", "2", "password"));
     }
@@ -210,13 +210,13 @@ public class UserTest {
     @Test
     public void testToString() {
         assertEquals(s0.toString(), "This User is a Student whose name is "
-                + "George F Weasley and ID number is 1");
+                + "George F and ID number is 1");
         assertEquals(s1.toString(), "This User is a Student whose name is "
-                + "Fred G Weasley and ID number is 2");
+                + "Fred G and ID number is 2");
         assertEquals(t0.toString(), "This User is a Teacher whose name is "
-                + "George F Weasley and ID number is 1");
+                + "George Weasley and ID number is 1");
         assertEquals(t1.toString(), "This User is a Teacher whose name is "
-                + "Fred G Weasley and ID number is 2");
+                + "Fred Weasley and ID number is 2");
     }
     
     
