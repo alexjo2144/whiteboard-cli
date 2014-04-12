@@ -25,6 +25,9 @@ public class AssignmentTest {
     private Assignment ass3;
     private Assignment ass4;
     
+    /**
+     * Initializes fields used for testing
+     */
     @Before
     public void initialize() {
         ass0 = new Assignment("Ass0", "A test", "Test", 100, 10);
@@ -60,15 +63,15 @@ public class AssignmentTest {
     /** Testing for Assignment.getGrade() */
     @Test
     public void testGetGrade() {
-        assertTrue(100 == ass0.getGrade("Fred"));
-        assertTrue(85 == ass0.getGrade("George"));
-        assertTrue(90 == ass0.getGrade("Ron"));
-        assertTrue(50 == ass0.getGrade("Ginny"));
+        assertEquals(100 == ass0.getGrade("Fred"), true);
+        assertEquals(85 == ass0.getGrade("George"), true);
+        assertEquals(90 == ass0.getGrade("Ron"), true);
+        assertEquals(50 == ass0.getGrade("Ginny"), true);
         
-        assertTrue(25 == ass1.getGrade("Fred"));
-        assertTrue(20 == ass1.getGrade("George"));
-        assertTrue(10 == ass1.getGrade("Ron"));
-        assertTrue(0 == ass1.getGrade("Ginny"));
+        assertEquals(25 == ass1.getGrade("Fred"), true);
+        assertEquals(20 == ass1.getGrade("George"), true);
+        assertEquals(10 == ass1.getGrade("Ron"), true);
+        assertEquals(0 == ass1.getGrade("Ginny"), true);
         
         try {
             ass0.getGrade("Bill");
@@ -102,19 +105,19 @@ public class AssignmentTest {
     /** Testing for Assignment.getMin() */
     @Test
     public void testGetMin() {
-        assertTrue(ass0.getMin() == 50);
-        assertTrue(ass1.getMin() == 0);
-        assertTrue(ass2.getMin() == 5);
-        assertTrue(ass3.getMin() == 6);
+        assertEquals(true, ass0.getMin() == 50);
+        assertEquals(true, ass1.getMin() == 0);
+        assertEquals(true, ass2.getMin() == 5);
+        assertEquals(true, ass3.getMin() == 6);
     }
     
     /** Testing for Assignment.getMax() */
     @Test
     public void testGetMax() {
-        assertTrue(ass0.getMax() == 100);
-        assertTrue(ass1.getMax() == 25);
-        assertTrue(ass2.getMax() == 10);
-        assertTrue(ass3.getMax() == 10);
+        assertEquals(true, ass0.getMax() == 100);
+        assertEquals(true, ass1.getMax() == 25);
+        assertEquals(true, ass2.getMax() == 10);
+        assertEquals(true, ass3.getMax() == 10);
     }
     
     /** Testing for Assignment.addGrade() */
@@ -122,8 +125,8 @@ public class AssignmentTest {
     public void testSetGrade() {
         ass0.setGrade("Fred", 99);
         ass0.setGrade("Harry", 10);
-        assertTrue(ass0.getGrade("Fred") == 99);
-        assertTrue(ass0.getGrade("Harry") == 10);
+        assertEquals(true, ass0.getGrade("Fred") == 99);
+        assertEquals(true, ass0.getGrade("Harry") == 10);
     }
     
     /** Testing for Assignment.equals() */
@@ -170,19 +173,19 @@ public class AssignmentTest {
     /** Testing for Assignment.getTotalPointsPossible() */
     @Test
     public void testGetTotalPointsPossible() {
-        assertTrue(ass0.getTotalPointsPossible() == 100);
-        assertTrue(ass1.getTotalPointsPossible() == 25);
-        assertTrue(ass2.getTotalPointsPossible() == 10);
-        assertTrue(ass3.getTotalPointsPossible() == 15);
+        assertEquals(true, ass0.getTotalPointsPossible() == 100);
+        assertEquals(true, ass1.getTotalPointsPossible() == 25);
+        assertEquals(true, ass2.getTotalPointsPossible() == 10);
+        assertEquals(true, ass3.getTotalPointsPossible() == 15);
     }
     
     /** Testing for Assignment.getWeight() */
     @Test
     public void testGetWeight() {
-        assertTrue(ass0.getWeight() == 10);
-        assertTrue(ass1.getWeight() == 5);
-        assertTrue(ass2.getWeight() == 2);
-        assertTrue(ass3.getWeight() == 1);
+        assertEquals(true, ass0.getWeight() == 10);
+        assertEquals(true, ass1.getWeight() == 5);
+        assertEquals(true, ass2.getWeight() == 2);
+        assertEquals(true, ass3.getWeight() == 1);
     }
     
     /** Testing for Assignment.setName() */
