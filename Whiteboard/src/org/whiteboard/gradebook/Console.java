@@ -70,6 +70,7 @@ public class Console {
             catch (FileNotFoundException e) {
                 System.out.println("No such file found."
                         + " Please re-run the program.");
+                s.close();
                 System.exit(0);
             }
         }
@@ -147,6 +148,7 @@ public class Console {
         String in = s.nextLine();
         if (in.equalsIgnoreCase("quit")) {
             System.out.println("Goodbye.");
+            s.close();
             System.exit(0);
         }
         return in;
@@ -326,7 +328,7 @@ public class Console {
                         assName = assName + "\n";
                         String in = inputString + assName + assScore;
                         System.out.println(in);
-                        //TODO
+                        // TODO
                         gb.processString(in);
                     }
                     catch (RuntimeException e) {
@@ -353,12 +355,12 @@ public class Console {
                         studName = studName + "\n";
                         String in = inputString + studName + assScore;
                         System.out.println(in);
-                        //TODO
+                        // TODO
                         gb.processString(in);
                     }
                     catch (RuntimeException e) {
                         System.out.println("Invalid input. Try again.");
-                        //ensure you have existing assignments and students...
+                        // ensure you have existing assignments and students...
                     }
                 }
             }
@@ -456,13 +458,18 @@ public class Console {
      */
     private void writeToFile(String content, String fileName) {
         File f = new File(fileName);
+        PrintStream ps = null;
         try {
-            PrintStream ps = new PrintStream(f);
+            ps = new PrintStream(f);
             ps.println(content);
-            ps.close();
         }
         catch (FileNotFoundException e) {
             System.out.println("Error in creating the file");
+        }
+        finally {
+            if (ps != null) {
+                ps.close();
+            }
         }
 
     }

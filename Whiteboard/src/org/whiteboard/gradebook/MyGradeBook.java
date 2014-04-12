@@ -19,6 +19,8 @@ import java.util.Scanner;
  * 
  * @author Daniel Wolf <wolf@ccs.neu.edu>
  * @version April 11, 2014 */
+
+
 public class MyGradeBook {
     private Map<String, Student> students;
     private Map<String, Assignment> assignments;
@@ -105,7 +107,7 @@ public class MyGradeBook {
         while (s.hasNextLine()) {
             fileString += s.nextLine() + "\n";
         }
-
+        s.close();
         return initializeWithString(fileString);
     }
 
@@ -168,16 +170,16 @@ public class MyGradeBook {
      *            addAssignments.txt, addStudents.txt,
      *            gradesForAssignment1.txt, and gradesForStudent.txt. */
     public void processFile(String filename) {
+        Scanner s = null;
         try {
             File f = new File(filename);
-            Scanner s;
             s = new Scanner(f);
 
             String fileString = "";
             while (s.hasNextLine()) {
                 fileString += s.nextLine() + "\n";
             }
-
+            s.close();
             processString(fileString);
         }
         catch (FileNotFoundException e) {
