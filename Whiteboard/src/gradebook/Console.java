@@ -1,4 +1,4 @@
-package org.whiteboard.gradebook;
+package gradebook;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
