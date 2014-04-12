@@ -18,12 +18,6 @@ public class MyGradeBookTest {
 
     //////////////////////////Private Fields /////////////////////////////////
 
-    private Assignment myAss0;
-    private Assignment myAss1;
-    private Assignment myAss2;
-    private Assignment myAss3;
-    private Assignment myAss4;
-
     /**
      * An Empty kool GradeBook
      */
