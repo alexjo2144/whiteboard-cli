@@ -302,6 +302,8 @@ public class Console {
                 gb.processFile(getInput());
             }
             catch (RuntimeException e) {
+                System.out.println(e.getStackTrace());
+                System.out.println(e.getMessage());
                 System.out.println("Not a valid file name invalid data. "
                         + "Please try again.");
             }
@@ -356,6 +358,7 @@ public class Console {
                     }
                     catch (RuntimeException e) {
                         System.out.println("Invalid input. Try again.");
+                        //ensure you have existing assignments and students...
                     }
                 }
             }
