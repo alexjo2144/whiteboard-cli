@@ -10,8 +10,10 @@ package gradebook;
 public class Teacher extends User {
     /** Creates a new Teacher with given parameters
      * 
-     * @param n
-     *            The Teacher's name
+     * @param fn
+     *            The Teacher's first name
+     * @param ln
+     *            The Teacher's last name
      * @param i
      *            The Teacher's ID number
      * @param pass

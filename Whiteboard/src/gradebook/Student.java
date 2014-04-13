@@ -15,10 +15,16 @@ public class Student extends User {
     
     /** Creates a new Student with given parameters
      * 
-     * @param n
-     *            the Student's name
+     * @param fn
+     *            the Student's first name
+     * @param ln
+     *            the Student's last name
+     * @param adv
+     *            the Student's advisor's name
      * @param i
      *            the Student's ID number
+     * @param grad
+     *            the Student's graduation year
      * @param pass
      *            the Student's password */
     protected Student(String fn, String ln, String adv, String i,
@@ -47,7 +53,7 @@ public class Student extends User {
     
     /** Set the student's graduation year with a String (e.g. "2017")
      * 
-     * @param gradYear
+     * @param grad
      *            the year to set graduation year to */
     protected void setGraduationYear(String grad) {
         graduationYear = grad;
@@ -62,8 +68,8 @@ public class Student extends User {
     
     /** Sets this user's advisor's name
      * 
-     * @param the
-     *            User's new advisor */
+     * @param adv
+     *           the User's new advisor */
     protected void setAdvisor(String adv) {
         this.advisor = adv;
     }

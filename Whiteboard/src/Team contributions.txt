@@ -1,0 +1,9 @@
+
+Team Contributions
+
+
+Alex Jo:        Basic requirements and design, domains/relations/constraints, module dependency diagram, Assignment, Student, Teacher, worked on MyGradeBook
+Patrick:        Basic requirements and design, user cases, Console, worked on MyGradeBook
+Danny Wolf:        Basic requirements and design, UML diagram, implemented MyGradeBook
+Jacob Ginsparg:        Basic requirements and design, domains/relations/constraints, module dependency diagram, BlackBox testing, worked on MyGradeBook
+

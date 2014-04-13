@@ -14,12 +14,12 @@ public abstract class User {
     /** A String representing the User's password, used for logging into the
      * system */
     protected String password;
-    
+
     /** Checks if this User is a Teacher
      * 
      * @return true if User is a Teacher, else false */
     protected abstract boolean isTeacher();
-    
+
     /** Sets this User's name to given String, n
      * 
      * @param n
@@ -27,28 +27,28 @@ public abstract class User {
     protected void setFirstName(String n) {
         this.firstName = n;
     }
-    
+
     /** Gets this user's name
      * 
      * @return a String, this user's name */
     protected String getFirstName() {
         return firstName;
     }
-    
+
     /** Gets this User's last name
      * 
      * @return a String, this User's last name */
     protected String getLastName() {
         return this.lastName;
     }
-    
+
     /** Sets this User's last name to given String
      * 
      * @param ln */
     protected void setLastName(String ln) {
         this.lastName = ln;
     }
-    
+
     /** Sets this user's ID number to given int, i
      * 
      * @param i
@@ -56,14 +56,14 @@ public abstract class User {
     protected void setID(String i) {
         this.id = i;
     }
-    
+
     /** Gets this User's ID number
      * 
      * @return an Integer, this user's ID number */
     protected String getID() {
         return id;
     }
-    
+
     /** Sets this user's password to given String, p
      * 
      * @param p
@@ -71,40 +71,36 @@ public abstract class User {
     protected void setPassword(String p) {
         this.password = p;
     }
-    
+
     /** Gets this User's password
      * 
      * @return a String, this User's password */
     protected String getPassword() {
         return password;
     }
-    
+
     /** Tests if two Users are the same, two Users are the same if they have
      * the same name, ID, and password
      * 
-     * @param The
-     *            object being compared for equality
+     * @param obj
+     *            The object being compared for equality
      * @return True if the object is equal to this User, else false */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof User) {
             User temp = (User) obj;
-            if (this.firstName.equals(temp.getFirstName())
+            return this.firstName.equals(temp.getFirstName())
                     && this.lastName.equals(temp.getLastName())
                     && this.id.equals(temp.getID())
                     && this.password.equals(temp.getPassword())
-                    && this.isTeacher() == (temp.isTeacher())) {
-                return true;
-            }
-            else {
-                return false;
-            }
+                    && this.isTeacher() == (temp.isTeacher());
+
         }
         else {
             return false;
         }
     }
-    
+
     @Override
     public String toString() {
         String ret = "This User is a ";
@@ -116,10 +112,10 @@ public abstract class User {
         }
         ret +=
                 "whose name is " + this.firstName + " " + this.lastName
-                        + " and ID number is " + this.id;
+                + " and ID number is " + this.id;
         return ret;
     }
-    
+
     @Override
     public int hashCode() {
         int ret = 0;
@@ -127,5 +123,5 @@ public abstract class User {
         ret += this.id.hashCode() * 787;
         return ret;
     }
-    
+
 }

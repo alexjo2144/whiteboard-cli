@@ -1,10 +1,8 @@
 import static org.junit.Assert.*;
 import gradebook.MyGradeBook;
 
-import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 
-import gradebook.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.*;
@@ -24,13 +22,6 @@ public class MyGradeBookTest {
     private MyGradeBook kGB0;
     /** A kool GradeBook from initial.txt */
     private MyGradeBook kGB1;
-    /** A kool GradeBook with assignments from addAssignments.txt */
-    private MyGradeBook kGB2;
-    /** A kool GradeBook with students from addStudents.txt */
-    private MyGradeBook kGB3;
-    /** A kool GradeBook with both */
-    private MyGradeBook kGB4;
-    
     /** Sets initials */
     @Before
     public void initials() {
@@ -38,7 +29,7 @@ public class MyGradeBookTest {
         // Gradebooks
         this.kGB0 = MyGradeBook.initialize();
         this.kGB1 = MyGradeBook.initializeWithFile("initial.txt");
-        this.kGB2 = MyGradeBook.initialize();
+        MyGradeBook.initialize();
     }
     
     /** Tests the initial GradeBook */
@@ -224,7 +215,7 @@ public class MyGradeBookTest {
     /** Tests for the currentGrades method */
     @Test
     public void testCurrentGrades() {
-        assertTrue(this.kGB1.currentGrades().size() == 17);
+        assertSame(this.kGB1.currentGrades().size(), 17);
     }
     
     /** Tests for the assignmentGrade method */

@@ -163,14 +163,14 @@ public class UserTest {
     /** Testing for User.hashCode() */
     @Test
     public void testHashCode() {
-        assertTrue(s0.hashCode() == new Student("George", "F", "Weasley",
-                "1", "2015", "password").hashCode());
-        assertTrue(s1.hashCode() == new Student("Fred", "G", "Weasley", "2",
-                "2018", "password").hashCode());
-        assertTrue(t0.hashCode() == new Teacher("George", "Weasley", "1",
-                "password").hashCode());
-        assertTrue(t1.hashCode() == new Teacher("Fred", "Weasley", "2",
-                "password").hashCode());
+        assertEquals(s0.hashCode() == new Student("George", "F", "Weasley",
+                "1", "2015", "password").hashCode(), true);
+        assertEquals(s1.hashCode() == new Student("Fred", "G", "Weasley", "2",
+                "2018", "password").hashCode(), true);
+        assertEquals(t0.hashCode() == new Teacher("George", "Weasley", "1",
+                "password").hashCode(), true);
+        assertEquals(t1.hashCode() == new Teacher("Fred", "Weasley", "2",
+                "password").hashCode(), true);
     }
     
     /** Testing for User.toString() */
