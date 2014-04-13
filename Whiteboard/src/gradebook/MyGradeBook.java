@@ -55,28 +55,57 @@ public class MyGradeBook {
         }
     }
     
+    /** Adds a student to MyGradeBook
+     * 
+     * @param name
+     *            the username of the student
+     * @param student
+     *            the Student object to add
+     * @return success */
     protected boolean addStudent(String name, Student student) {
         students.put(name, student);
         return true;
     }
     
+    /** Drops a student from the course.
+     * 
+     * @param student
+     *            the student object to drop
+     * @return success */
     protected boolean dropStudent(Student student) {
         students.remove(student);
         return true;
     }
     
+    /** Add an assignment to the grade book.
+     * 
+     * @param name
+     *            the assignment's name
+     * @param assignment
+     *            the assignment object to add
+     * @return success */
     protected boolean addAssignment(String name, Assignment assignment) {
         assignments.put(name, assignment);
         assignmentOrder.add(name);
         return true;
     }
     
+    /** Drop an assignment by name
+     * 
+     * @param name
+     *            the assignment by name to drop
+     * @return success */
     protected boolean dropAssignment(String name) {
         assignments.remove(name);
         assignmentOrder.remove(name);
         return true;
     }
     
+    /** Get a student object by username
+     * 
+     * @param id
+     *            the student's username
+     * @return the student object */
     protected Student getStudent(String id) {
         return students.get(id);
     }
@@ -556,6 +585,9 @@ public class MyGradeBook {
         return export;
     }
     
+    /** Get the order of assignments as assigned.
+     * @return the order of assignments.
+     */
     public List<String> getAssignmentOrder() {
         return this.assignmentOrder;
     }

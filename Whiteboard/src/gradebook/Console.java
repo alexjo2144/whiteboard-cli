@@ -1,9 +1,8 @@
-package org.whiteboard.gradebook;
+package gradebook;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.io.File;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -65,15 +64,7 @@ public class Console {
         }
         else {
             System.out.println("Initializing from a file...");
-            try {
-                gb = MyGradeBook.initializeWithFile(gbInit);
-            }
-            catch (FileNotFoundException e) {
-                System.out.println("No such file found."
-                    + " Please re-run the program.");
-                s.close();
-                System.exit(0);
-            }
+            gb = MyGradeBook.initializeWithFile(gbInit);
         }
         runOptions();
     }
